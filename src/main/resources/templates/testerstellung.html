@@ -7,58 +7,73 @@
         th:href="@{css/bootstrap.min.css}">
 </head>
 <body>
-<h1>Erstellung eines neuen Tests</h1>
+<h1 class="text-center">Erstellung eines neuen Tests</h1>
 
-<div>
-  <form method="post" action="/testerstellung/speichern">
-    <label for="name">Name</label>
-    <input type="text" id="name" name="name" required>
+<div class="container">
+  <div class="row">
+    <div class="col">
+        <form method="post" action="/testerstellung/speichern">
+          <div>
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required>
+          </div>
 
-    <label for="testID">TestID</label>
-    <input type="text" id="testID" name="testID" required>
+          <div>
+            <label for="testID">TestID</label>
+            <input type="text" id="testID" name="testID" required>
+          </div>
 
-    <label for="anfangsZeit">Beginn</label>
-    <input type="datetime-local" id="anfangsZeit" name="anfangsZeit" required>
+          <div>
+            <label for="anfangsZeit">Beginn</label>
+            <input type="datetime-local" id="anfangsZeit" name="anfangsZeit" required>
+          </div>
 
-    <label for="endZeit">Ende</label>
-    <input type="datetime-local" id="endZeit" name="endZeit" required>
+          <div>
+            <label for="endZeit">Ende</label>
+            <input type="datetime-local" id="endZeit" name="endZeit" required>
+          </div>
 
-    <button type="submit">Test erstellen</button>
-  </form>
+          <div>
+            <button type="submit">Test erstellen</button>
+          </div>
+        </form>
 
+        <form method="get" action="/testerstellung/fragenerstellung">
+          <button type="submit">Frage hinzufügen</button>
+        </form>
+    </div>
 
-  <form method="get" action="/testerstellung/fragenerstellung">
-    <button type="submit">Frage hinzufügen</button>
-  </form>
+    <div class = "row">
+      <h2>Fragen:</h2>
+      <table>
+        <thead>
+        <tr>
+          <th>Fragentyp</th>
+          <th>Name</th>
+          <th>Frage</th>
+          <th>Antwortmöglichkeiten</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr>
+          <td>Multiple Choice</td>
+          <td>Frage1</td>
+          <td>Thymeleaf zum Teufel</td>
+          <td>antwort1, antwort2, antwort3</td>
+        </tr>
+        <tr>
+          <td>Freitext</td>
+          <td>Frage2</td>
+          <td>Warum ist HTML so kacke</td>
+          <td></td>
+        </tr>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
 </div>
-
-
-<h2>Fragen:</h2>
-<table>
-  <thead>
-  <tr>
-    <th>Fragentyp</th>
-    <th>Name</th>
-    <th>Frage</th>
-    <th>Antwortmöglichkeiten</th>
-  </tr>
-  </thead>
-  <tbody>
-
-  <tr>
-    <td>Multiple Choice</td>
-    <td>Frage1</td>
-    <td>Thymeleaf zum Teufel</td>
-    <td>antwort1, antwort2, antwort3</td>
-  </tr>
-  <tr>
-    <td>Freitext</td>
-    <td>Frage2</td>
-    <td>Warum ist HTML so kacke</td>
-    <td></td>
-  </tr>
-  </tbody>
-</table>
 
 </body>
 </html>
