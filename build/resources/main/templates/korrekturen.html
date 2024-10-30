@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Freitextfrage Korrektur</title>
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet"
+          th:href="@{css/bootstrap.min.css}">
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <h1>Freitextantwort korrigieren</h1>
+            <p>Darstellung der Frage ...</p>
+
+            <p>Darstellung der Antwort des Studenten</p>
+
+            <form>
+                <label for="feedbackFreitext">Korrektur und Feedback:</label><br>
+                <textarea id="feedbackFreitext" name="feedbackFreitext" rows="4" cols="50" placeholder="Geben Sie hier Ihre Korrektur oder Ihr Feedback ein"></textarea><br><br>
+
+                <label for="punktzahlFreitext">Punktzahl:</label><br>
+                <input type="number" id="punktzahlFreitext" name="punktzahlFreitext" min="0" max="10" placeholder="0-10"><br><br>
+
+                <input type="submit" value="Bewertung speichern">
+            </form>
+        </div>
+        <div class="col">
+            <h2>Frage: ...</h2>
+
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Antwort</th>
+                    <th>Auswahl des Schülers</th>
+                    <th>Korrekte Antwort</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>antwort1</td>
+                    <td>Ja</td>
+                    <td>Ja</td>
+                </tr>
+                <tr>
+                    <td>antwort2</td>
+                    <td>Nein</td>
+                    <td>Ja</td>
+                </tr>
+                <tr>
+                    <td>antwort3</td>
+                    <td>Ja</td>
+                    <td>Nein</td>
+                </tr>
+                <tr>
+                    <td>antwort4</td>
+                    <td>Ja</td>
+                    <td>Ja</td>
+                </tr>
+                </tbody>
+            </table>
+            <p>Punktzahl sind 2 von 4 Punkten, da 50% der Fragen richtig beantwortet worden.</p>
+        </div>
+    </div>
+    <div class="row">
+        <p>Links müssen noch angepasst werden!</p>
+        <a href="/woche1">Letzte Frage</a>
+        <a href="/">Startseite</a>
+        <a href="/woche1">Nächste Frage</a>
+    </div>
+</div>
+</body>
+</html>
