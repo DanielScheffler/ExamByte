@@ -8,7 +8,6 @@
 </head>
 <body>
 <h1 class="text-center">Erstellung eines neuen Tests</h1>
-
 <div class="container">
   <div class="row">
     <div class="col">
@@ -17,35 +16,29 @@
             <label for="name">Name</label>
             <input type="text" id="name" name="name" required>
           </div>
-
           <div>
             <label for="testID">TestID</label>
             <input type="text" id="testID" name="testID" required>
           </div>
-
           <div>
             <label for="anfangsZeit">Beginn</label>
             <input type="datetime-local" id="anfangsZeit" name="anfangsZeit" required>
           </div>
-
           <div>
             <label for="endZeit">Ende</label>
             <input type="datetime-local" id="endZeit" name="endZeit" required>
           </div>
-
           <div>
             <button type="submit">Test erstellen</button>
           </div>
         </form>
-
         <form method="get" action="/testerstellung/fragenerstellung">
           <button type="submit">Frage hinzufügen</button>
         </form>
     </div>
-
     <div class = "row">
       <h2>Fragen:</h2>
-      <table>
+      <table class="table">
         <thead>
         <tr>
           <th>Fragentyp</th>
@@ -55,7 +48,6 @@
         </tr>
         </thead>
         <tbody>
-
         <tr>
           <td>Multiple Choice</td>
           <td>Frage1</td>
@@ -70,10 +62,8 @@
         </tr>
         </tbody>
       </table>
-
     </div>
   </div>
 </div>
-
 </body>
 </html>
