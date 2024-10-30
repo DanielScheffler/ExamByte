@@ -3,47 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <title>Fragenerstellung</title>
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet"
+          th:href="@{css/bootstrap.min.css}">
+    <style>
+        td, th {
+        text-align: center;
+        vertical-align: middle;
+        }
+    </style>
 </head>
 <body>
+<div class="container pt-3">
+    <h1 class="text-center">Fragenerstellung</h1>
 
-<h1>Fragenerstellung</h1>
+    <form method="post" action="/testerstellung/fragenerstellung/speichern">
+        <div>
+            <label class="form-label" for="questionType">Fragentyp</label>
+            <select class="form-control"  id="questionType" name="questionType">
+                <option value="multipleChoice">Multiple Choice</option>
+                <option value="freitext">Freitext</option>
+            </select>
+        </div>
+        <div>
+            <label class="form-label" for="questionName">Name der Frage</label>
+            <input class="form-control"  type="text" id="questionName" name="questionName" required>
+        </div>
+        <div>
+            <label class="form-label" for="questionText">Fragetext</label>
+            <textarea class="form-control"  id="questionText" name="questionText" rows="4" cols="50" required></textarea>
+        </div>
 
-<form method="post" action="/testerstellung/fragenerstellung/speichern">
-    <label for="questionType">Fragentyp</label>
-    <select id="questionType" name="questionType">
-        <option value="multipleChoice">Multiple Choice</option>
-        <option value="freitext">Freitext</option>
-    </select>
+        <div id="multipleChoiceOptions" style="display: table">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Antwortmöglichkeiten</th>
+                        <th>Richtig</th>
+                        <th>Entfernen</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th>
+                            <label for="antwort1" aria-label="Antwortmöglichkeit 1"></label>
+                            <input class="form-control" type="text" id="antwort1" placeholder="Antwortmöglichkeit 1" required><br>
+                        </th>
+                        <th>
+                            <label for="antwort1correct" aria-label="Antwortmöglichkeit korrekt"></label>
+                            <input class="" type="checkbox" id="antwort1correct" name="frage" value="antwort1">
+                        </th>
+                        <th>
+                            <button class="btn btn-secondary" >Entfernen</button>
+                        </th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
-    <label for="questionName">Name der Frage</label>
-    <input type="text" id="questionName" name="questionName" required>
+        <button class="btn btn-primary" type="submit">Frage speichern</button>
+    </form>
 
-    <label for="questionText">Fragetext</label>
-    <textarea id="questionText" name="questionText" rows="4" cols="50" required></textarea>
-    <p>Umstrukturieren zu table mit checkbox</p>
-    <div id="multipleChoiceOptions" style="display: block;">
-        <label>Antwortmöglichkeiten:</label><br>
-
-        <label for="option1">Antwortmöglichkeit 1</label>
-        <input type="text" id="option1" name="options[]" required><br>
-
-        <label for="option2">Antwortmöglichkeit 2</label>
-        <input type="text" id="option2" name="options[]" required><br>
-
-        <label for="option3">Antwortmöglichkeit 3</label>
-        <input type="text" id="option3" name="options[]"><br>
-
-        <label for="option4">Antwortmöglichkeit 4</label>
-        <input type="text" id="option4" name="options[]"><br>
-
-        <label for="option5">Antwortmöglichkeit 5</label>
-        <input type="text" id="option5" name="options[]"><br>
-    </div>
-
-    <button type="submit">Frage speichern</button>
-</form>
-
-<a href="/testerstellung">Zurück zur Testübersicht</a>
-
+    <a href="/testerstellung">Zurück zur Testübersicht</a>
+</div>
 </body>
 </html>
