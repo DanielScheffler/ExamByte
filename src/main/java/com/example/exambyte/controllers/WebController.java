@@ -25,32 +25,14 @@ public class WebController {
 
     //Controller für Tests
     @GetMapping("/woche1")
-    public String fragenuebersicht(){
-        return "fragenuebersicht";
+    public String fragen(){
+        return "fragen";
     }
 
-    //Controller für Freitext Fragen
-    @GetMapping("/woche1/frage1")
-    public String freitext(){
-        return "freitext";
-    }
-
-    //Controller für MultipleChoice Fragen
-    @GetMapping("/woche1/frage2")
-    public String multiplechoice(){
-        return "multipleChoice";
-    }
-
-    //Controller für die Korrektur von Freitext Fragen
+    //Controller für die Korrektur von Fragen
     @GetMapping("/woche1/frage1_korrektur")
-    public String freitextkorrektur(){
-        return "freitext_korrektur";
-    }
-
-    //Controller für die Korrektur von MultipleChoice Fragen
-    @GetMapping("/woche1/frage2_korrektur")
-    public String multiplechoicekorrektur(){
-        return "multipleChoice_korrektur";
+    public String korrekturen(){
+        return "korrekturen";
     }
 
 }
