@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fragenerstellung</title>
+</head>
+<body>
+
+<h1>Fragenerstellung</h1>
+
+<form method="post" action="/testerstellung/fragenerstellung/speichern">
+    <label for="questionType">Fragentyp</label>
+    <select id="questionType" name="questionType">
+        <option value="multipleChoice">Multiple Choice</option>
+        <option value="freitext">Freitext</option>
+    </select>
+
+    <label for="questionName">Name der Frage</label>
+    <input type="text" id="questionName" name="questionName" required>
+
+    <label for="questionText">Fragetext</label>
+    <textarea id="questionText" name="questionText" rows="4" cols="50" required></textarea>
+
+    <div id="multipleChoiceOptions" style="display: block;">
+        <label>Antwortmöglichkeiten:</label><br>
+
+        <label for="option1">Antwortmöglichkeit 1</label>
+        <input type="text" id="option1" name="options[]" required><br>
+
+        <label for="option2">Antwortmöglichkeit 2</label>
+        <input type="text" id="option2" name="options[]" required><br>
+
+        <label for="option3">Antwortmöglichkeit 3</label>
+        <input type="text" id="option3" name="options[]"><br>
+
+        <label for="option4">Antwortmöglichkeit 4</label>
+        <input type="text" id="option4" name="options[]"><br>
+
+        <label for="option5">Antwortmöglichkeit 5</label>
+        <input type="text" id="option5" name="options[]"><br>
+    </div>
+
+    <button type="submit">Frage speichern</button>
+</form>
+
+<a href="/testerstellung">Zurück zur Testübersicht</a>
+
+</body>
+</html>

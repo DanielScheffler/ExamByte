@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Testerstellung</title>
+</head>
+<body>
+<h1>Erstellung eines neuen Tests</h1>
+
+<div>
+  <form method="post" action="/testerstellung/speichern">
+    <label for="name">Name</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="testID">TestID</label>
+    <input type="text" id="testID" name="testID" required>
+
+    <label for="anfangsZeit">Beginn</label>
+    <input type="datetime-local" id="anfangsZeit" name="anfangsZeit" required>
+
+    <label for="endZeit">Ende</label>
+    <input type="datetime-local" id="endZeit" name="endZeit" required>
+
+    <button type="submit">Test erstellen</button>
+  </form>
+
+
+  <form method="get" action="/testerstellung/fragenerstellung">
+    <button type="submit">Frage hinzufügen</button>
+  </form>
+</div>
+
+
+<h2>Fragen:</h2>
+<table>
+  <thead>
+  <tr>
+    <th>Fragentyp</th>
+    <th>Name</th>
+    <th>Frage</th>
+    <th>Antwortmöglichkeiten</th>
+  </tr>
+  </thead>
+  <tbody>
+
+  <tr>
+    <td>Multiple Choice</td>
+    <td>Frage1</td>
+    <td>Thymeleaf zum Teufel</td>
+    <td>antwort1, antwort2, antwort3</td>
+  </tr>
+  <tr>
+    <td>Freitext</td>
+    <td>Frage2</td>
+    <td>Warum ist HTML so kacke</td>
+    <td></td>
+  </tr>
+  </tbody>
+</table>
+
+</body>
+</html>

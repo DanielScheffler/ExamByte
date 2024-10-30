@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Multiplechoicefrage Korrektur</title>
+</head>
+<body>
+    <h1>Frage: ...</h1>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Antwort</th>
+            <th>Auswahl des Schülers</th>
+            <th>Korrekte Antwort</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>antwort1</td>
+            <td>Ja</td>
+            <td>Ja</td>
+        </tr>
+        <tr>
+            <td>antwort2</td>
+            <td>Nein</td>
+            <td>Ja</td>
+        </tr>
+        <tr>
+            <td>antwort3</td>
+            <td>Ja</td>
+            <td>Nein</td>
+        </tr>
+        <tr>
+            <td>antwort4</td>
+            <td>Ja</td>
+            <td>Ja</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <p>Vorgeschlagene Punktzahl sind 2 von 4 Punkten, da 50% der Fragen richtig beantwortet worden.</p>
+    <form>
+        <label for="feedback">Korrektur und Feedback:</label><br>
+        <textarea id="feedback" name="feedback" rows="4" cols="50" placeholder="Geben Sie hier Ihre Korrektur oder Ihr Feedback ein"></textarea><br><br>
+
+        <label for="Punktzahl">Punktzahl:</label><br>
+        <input type="number" id="Punktzahl" name="Punktzahl" min="0" max="4" placeholder="0-4"><br><br>
+
+        <input type="submit" value="Bewertung speichern">
+    </form>
+</body>
+</html>
