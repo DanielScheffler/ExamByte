@@ -80,13 +80,14 @@ public class WebController {
                 .addName("Frage 1")
                 .addFragestellung("Warum ist die Banane krumm?")
                 .addMaxPunktzahl(2)
+                .addAntwortmöglichkeiten(null)
                 .build();
         Frage dummyFrage2 = new FrageBuilder()
                 .addFragetyp(FRAGETYP.FRAGETYP_MULTIPLE_CHOICE)
                 .addName("Frage 2")
                 .addFragestellung("Was ist 2 + 2?")
                 .addMaxPunktzahl(2)
-                .addAntwortmöglichkeiten("3 4 5")
+                .addAntwortmöglichkeiten("3, 4, 5")
                 .build();
 
         return List.of(dummyFrage1, dummyFrage2);
