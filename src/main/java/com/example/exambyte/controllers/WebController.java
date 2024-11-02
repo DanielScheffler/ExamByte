@@ -1,10 +1,7 @@
 package com.example.exambyte.controllers;
 import com.example.exambyte.builder.FrageBuilder;
 import com.example.exambyte.builder.TestBuilder;
-import com.example.exambyte.data.FRAGETYP;
-import com.example.exambyte.data.Frage;
-import com.example.exambyte.data.STATUS;
-import com.example.exambyte.data.WochenTest;
+import com.example.exambyte.data.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,7 +30,7 @@ public class WebController {
 
     //Controller für die Erstellung von Fragen für Tests
     @GetMapping("/testerstellung/fragenerstellung")
-    public String fragenerstellung(){
+    public String fragenerstellung(FrageForm frageForm){
         return "fragenerstellung";
     }
 
