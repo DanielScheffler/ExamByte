@@ -16,21 +16,22 @@
 <div class="container pt-3">
     <h1 class="text-center">Fragenerstellung</h1>
 
-    <form method="post" action="/testerstellung/fragenerstellung/speichern">
+    <form method="post" action="/testerstellung/fragenerstellung/speichern" th:object="${frageForm}">
         <div>
             <label class="form-label" for="questionType">Fragentyp</label>
-            <select class="form-control"  id="questionType" name="questionType">
+            <select class="form-control"  id="questionType" th:field="*{fragetyp}">
                 <option value="multipleChoice">Multiple Choice</option>
                 <option value="freitext">Freitext</option>
             </select>
         </div>
         <div>
             <label class="form-label" for="questionName">Name der Frage</label>
-            <input class="form-control"  type="text" id="questionName" name="questionName" required>
+            <input class="form-control"  type="text" id="questionName" required th:field="*{name}">
         </div>
         <div>
             <label class="form-label" for="questionText">Fragetext</label>
-            <textarea class="form-control"  id="questionText" name="questionText" rows="4" cols="50" required></textarea>
+            <textarea class="form-control"  id="questionText" rows="4" cols="50" required
+                      th:field="*{fragestellung}"></textarea>
         </div>
 
         <div id="multipleChoiceOptions" style="display: table">
@@ -46,7 +47,8 @@
                     <tr>
                         <th>
                             <label for="antwort1" aria-label="Antwortmöglichkeit 1"></label>
-                            <input class="form-control" type="text" id="antwort1" placeholder="Antwortmöglichkeit 1" required><br>
+                            <input class="form-control" type="text" id="antwort1" placeholder="Antwortmöglichkeit 1"
+                                   required th:field="*{antwortmöglichkeiten}"><br>
                         </th>
                         <th>
                             <label for="antwort1correct" aria-label="Antwortmöglichkeit korrekt"></label>
