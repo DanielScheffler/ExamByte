@@ -47,12 +47,12 @@
           <th>Antwortmöglichkeiten</th>
         </tr>
         </thead>
-        <tbody>
-        <tr>
-          <td>Multiple Choice</td>
-          <td>Frage1</td>
-          <td>Thymeleaf zum Teufel</td>
-          <td>antwort1, antwort2, antwort3</td>
+        <tbody th:remove="all-but-first">
+        <tr th:each="frage : ${fragen}">
+          <td th:text="${frage.typ}">Multiple Choice</td>
+          <td th:text="${frage.name}">Frage1</td>
+          <td th:text="${frage.fragestellung}">Thymeleaf zum Teufel</td>
+          <td th:if="${frage.antwortmöglichkeiten}" th:text="${frage.antwortmöglichkeiten}">antwort1, antwort2, antwort3</td>
         </tr>
         <tr>
           <td>Freitext</td>
