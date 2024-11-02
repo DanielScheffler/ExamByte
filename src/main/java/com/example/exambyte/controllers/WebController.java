@@ -1,5 +1,8 @@
 package com.example.exambyte.controllers;
+import com.example.exambyte.builder.FrageBuilder;
 import com.example.exambyte.builder.TestBuilder;
+import com.example.exambyte.data.FRAGETYP;
+import com.example.exambyte.data.Frage;
 import com.example.exambyte.data.STATUS;
 import com.example.exambyte.data.WochenTest;
 import org.springframework.stereotype.Controller;
@@ -7,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -16,14 +18,16 @@ public class WebController {
     //Controller zur Startseite
     @GetMapping("/")
     public String wochenuebersicht(Model model){
-        List<WochenTest> dummies = initDummies();
-        model.addAttribute("tests", dummies);
+        List<WochenTest> dummyTests = initDummyTests();
+        model.addAttribute("tests", dummyTests);
         return "wochenuebersicht";
     }
 
     //Controller für die Erstellung von Tests
     @GetMapping("/testerstellung")
-    public String testerstellung(){
+    public String testerstellung(Model model){
+        List<Frage> dummyFragen = initDummyFragen();
+        model.addAttribute("fragen", dummyFragen);
         return "testerstellung";
     }
 
@@ -45,7 +49,7 @@ public class WebController {
         return "korrekturen";
     }
 
-    public List<WochenTest> initDummies(){
+    public List<WochenTest> initDummyTests(){
         WochenTest dummyTest1 = new TestBuilder()
                 .addName("Woche1")
                 .addStartTime(LocalDateTime.now())
@@ -68,6 +72,24 @@ public class WebController {
                 .build();
 
         return List.of(dummyTest1, dummyTest2, dummyTest3);
+    }
+
+    private List<Frage> initDummyFragen(){
+        Frage dummyFrage1 = new FrageBuilder()
+                .addFragetyp(FRAGETYP.FRAGETYP_FREITEXT)
+                .addName("Frage 1")
+                .addFragestellung("Warum ist die Banane krumm?")
+                .addMaxPunktzahl(2)
+                .build();
+        Frage dummyFrage2 = new FrageBuilder()
+                .addFragetyp(FRAGETYP.FRAGETYP_MULTIPLE_CHOICE)
+                .addName("Frage 2")
+                .addFragestellung("Was ist 2 + 2?")
+                .addMaxPunktzahl(2)
+                .addAntwortmöglichkeiten("3 4 5")
+                .build();
+
+        return List.of(dummyFrage1, dummyFrage2);
     }
 
 }
