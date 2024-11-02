@@ -49,10 +49,10 @@
         </thead>
         <tbody th:remove="all-but-first">
         <tr th:each="frage : ${fragen}">
-          <td th:text="${frage.fragetyp}">Multiple Choice</td>
+          <td th:text="${frage.fragetyp.getTyp()}">Multiple Choice</td>
           <td th:text="${frage.name}">Frage1</td>
           <td th:text="${frage.fragestellung}">Thymeleaf zum Teufel</td>
-          <td th:if="${frage.antwortmöglichkeiten}" th:text="${frage.antwortmöglichkeiten}">antwort1, antwort2, antwort3</td>
+          <td th:text="${frage.antwortmöglichkeiten}?:''">antwort1, antwort2, antwort3</td>
         </tr>
         <tr>
           <td>Freitext</td>
