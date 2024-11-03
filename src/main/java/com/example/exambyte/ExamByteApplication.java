@@ -1,6 +1,9 @@
 package com.example.exambyte;
 
+import com.example.exambyte.builder.FrageBuilder;
 import com.example.exambyte.builder.TestBuilder;
+import com.example.exambyte.data.FRAGETYP;
+import com.example.exambyte.data.Frage;
 import com.example.exambyte.data.STATUS;
 import com.example.exambyte.data.WochenTest;
 import com.example.exambyte.service.WochenTestService;
@@ -20,15 +23,43 @@ public class ExamByteApplication {
 		SpringApplication.run(ExamByteApplication.class, args);
 	}
 
+	// Adds a few example WochenTest objects
+
 	@Bean
 	@Order(1)
 	ApplicationRunner addExampleWochentests(WochenTestService wochenTestService) {
 		return args -> {
+
+			Frage frage1woche1 = new FrageBuilder()
+					.addFragetyp(FRAGETYP.FRAGETYP_FREITEXT)
+					.addName("Routing")
+					.addFragestellung("Was versteht man unter Routing im Kontext von SpringWebMVC?")
+					.addMaxPunktzahl(2)
+					.build();
+
+			Frage frage2woche1 = new FrageBuilder()
+					.addFragetyp(FRAGETYP.FRAGETYP_MULTIPLE_CHOICE)
+					.addName("HTTP-Verben")
+					.addFragestellung("Welches dieser HTTP Verben ist safe?")
+					.addAntwortmöglichkeiten("GET, POST, PUT, DELETE")
+					.addMaxPunktzahl(2)
+					.build();
+
 			WochenTest dummyTest1 = new TestBuilder()
 					.addName("Woche1")
 					.addStartTime(LocalDateTime.now())
 					.addEndTime(LocalDateTime.now().plusDays(1))
 					.addStatus(STATUS.STATUS_AUSSTEHEND)
+					.addFrage(frage1woche1)
+					.addFrage(frage2woche1)
+					.build();
+
+			Frage frage1woche2 = new FrageBuilder()
+					.addFragetyp(FRAGETYP.FRAGETYP_MULTIPLE_CHOICE)
+					.addName("Validierung")
+					.addFragestellung("Mit welchem Objekt prüft man auf aufgetretene Validierungsfehler?")
+					.addAntwortmöglichkeiten("RedirectAttributes, Model, BindingResult")
+					.addMaxPunktzahl(2)
 					.build();
 
 			WochenTest dummyTest2 = new TestBuilder()
@@ -36,6 +67,7 @@ public class ExamByteApplication {
 					.addStartTime(LocalDateTime.now().plusDays(2))
 					.addEndTime(LocalDateTime.now().plusDays(3))
 					.addStatus(STATUS.STATUS_BEARBEITBAR)
+					.addFrage(frage1woche2)
 					.build();
 
 			WochenTest dummyTest3 = new TestBuilder()
