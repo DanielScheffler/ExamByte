@@ -4,14 +4,14 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class WochenTest{
-    private List<Frage> frageList;
+    private List<Frage> fragen;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private String name;
     private STATUS status;
 
     public WochenTest(List<Frage> frageList, LocalDateTime startTime, LocalDateTime endTime,String name, STATUS status) {
-        this.frageList = frageList;
+        this.fragen = frageList;
         this.startTime = startTime;
         this.endTime = endTime;
         this.name = name;
@@ -21,11 +21,11 @@ public class WochenTest{
     public String getName() { return name; }
 
     public void addFrage(Frage frage){
-        frageList.add(frage);
+        fragen.add(frage);
     }
 
     public Frage getFrage(int index){
-        return frageList.get(index);
+        return fragen.get(index);
     }
 
     public LocalDateTime getEndTime() {
@@ -36,7 +36,7 @@ public class WochenTest{
         return startTime;
     }
 
-    public List<Frage> getFrageList() {return frageList;}
+    public List<Frage> getFragen() {return fragen;}
 
     public STATUS getStatus() {return status;}
 }
