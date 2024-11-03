@@ -3,11 +3,11 @@ package com.example.exambyte.data;
 public enum FRAGETYP {
     FRAGETYP_FREITEXT("Freitext"),
     FRAGETYP_MULTIPLE_CHOICE("Multiple Choice");
-    private String typ;
-    FRAGETYP(String typ) {
-        this.typ = typ;
+    private String title;
+    FRAGETYP(String title) {
+        this.title = title;
     }
-    public String getTyp() {
-        return typ;
+    public String getTitle() {
+        return title;
     }
 }
