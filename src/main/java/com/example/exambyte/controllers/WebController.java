@@ -23,15 +23,12 @@ public class WebController {
 
     public WebController(WochenTestService wochenTestService) {
         this.wochenTestService = wochenTestService;
-
-
     }
 
     //Controller zur Startseite
     @GetMapping("/")
     public String wochenuebersicht(Model model){
-        List<WochenTest> dummyTests = initDummyTests();
-        model.addAttribute("tests", dummyTests);
+        model.addAttribute("tests", wochenTestService.getWochenTests());
         return "wochenuebersicht";
     }
 
@@ -74,31 +71,6 @@ public class WebController {
     @GetMapping("/Woche1/frage1_korrektur")
     public String korrekturen(){
         return "korrekturen";
-    }
-
-    public List<WochenTest> initDummyTests(){
-        WochenTest dummyTest1 = new TestBuilder()
-                .addName("Woche1")
-                .addStartTime(LocalDateTime.now())
-                .addEndTime(LocalDateTime.now().plusDays(1))
-                .addStatus(STATUS.STATUS_AUSSTEHEND)
-                .build();
-
-        WochenTest dummyTest2 = new TestBuilder()
-                .addName("Woche2")
-                .addStartTime(LocalDateTime.now().plusDays(2))
-                .addEndTime(LocalDateTime.now().plusDays(3))
-                .addStatus(STATUS.STATUS_BEARBEITBAR)
-                .build();
-
-        WochenTest dummyTest3 = new TestBuilder()
-                .addName("Woche3")
-                .addStartTime(LocalDateTime.now().plusDays(4))
-                .addEndTime(LocalDateTime.now().plusDays(5))
-                .addStatus(STATUS.STATUS_NICHT_BESTANDEN)
-                .build();
-
-        return List.of(dummyTest1, dummyTest2, dummyTest3);
     }
 
     private List<Frage> initDummyFragen(){
