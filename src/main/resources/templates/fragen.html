@@ -7,12 +7,13 @@
           th:href="@{css/bootstrap.min.css}">
 </head>
 <body>
-<div class="container" th:object="${wochenTest}">
+<div class="container" th:if="${error}==null">
+    <div class="alert alert-warning" id="error-message" th:if="${error} != null" th:text="${error}">
+        Kein Wochentest mit diesem Namen gefunden.
+    </div>
     <div class="row">
-        <div class="col">
-            <h1 th:text="*{name}">
-                Test ...
-            </h1>
+        <div class="col" th:object="${wochenTest}">
+            <h1 th:text="*{name}">Test ...</h1>
             <p>Der Test lässt sich noch bis zum <span th:text="*{endTime}">DD.MM.YYYY</span> bearbeiten.</p>
             <div class="text-center">
                 <table class="table">
@@ -29,7 +30,7 @@
                                th:href="@{/{testname}/{fragename}(testname=*{name}, fragename=${frage.name})}"
                                th:text="${frage.name()}">Frage 1</a>
                         </th>
-                        <th th:text="${frage.fragetyp().getTyp()}">Freitext</th>
+                        <th th:text="${frage.fragetyp().getTitle()}">Freitext</th>
                         <th>In bearbeitung</th>
                     </tr>
                     <tr>
@@ -41,38 +42,40 @@
                 </table>
             </div>
         </div>
-        <div class="col">
-            <h1>Fragenname(Frage 1)</h1>
-            <p>Hier sollte die Frage stehen</p>
-            <p>Mögliche Punkte 10</p>
-            <form>
-                <label for="antwort">Antwort:</label><br>
-                <textarea id="antwort" name="antwort" rows="4" cols="50" placeholder="Deine Antwort hier eingeben"></textarea>
-                <input type="submit" value="Antworten">
-            </form>
+        <div th:object="${frage}">
+            <div class="col" th:if="*{fragetyp().getTitle()=='Freitext'}">
+                <h1 th:text="*{name}">Fragenname(Frage 1)</h1>
+                <p th:text="*{fragestellung()}">Hier sollte die Frage stehen</p>
+                <p>Mögliche Punkte: <span th:text="*{maxPunktzahl()}">10</span></p>
+                <form>
+                    <label for="antwort">Antwort:</label><br>
+                    <textarea id="antwort" name="antwort" rows="4" cols="50" placeholder="Deine Antwort hier eingeben"></textarea>
+                    <input type="submit" value="Antworten">
+                </form>
+            </div>
         </div>
-        <div class="col">
-            <h1>Fragenname(Frage 1)</h1>
+        <div th:object="${frage}">
+            <div class="col" th:if="*{fragetyp().getTitle()=='Multiple Choice'}">
+                <h1 th:text="*{name}">Fragenname(Frage 1)</h1>
+                <p th:text="*{fragestellung()}">Hier sollte die Frage stehen</p>
+                <p>Mögliche Punkte: <span th:text="*{maxPunktzahl()}">4</span></p>
+                <form>  <!--anstelle von multiple choice single choice benötigt type="radio" -->
+                    <input type="checkbox" id="antwort1" name="frage" value="antwort1">
+                    <label for="antwort1">antwort1</label><br>
 
-            <p>Hier sollte die Frage stehen</p>
-            <p>Mögliche Punkte 4</p>
-            <form>  <!--anstelle von multiple choice single choice benötigt type="radio" -->
-                <input type="checkbox" id="antwort1" name="frage" value="antwort1">
-                <label for="antwort1">antwort1</label><br>
+                    <input type="checkbox" id="antwort2" name="frage" value="antwort2">
+                    <label for="antwort2">antwort2</label><br>
 
-                <input type="checkbox" id="antwort2" name="frage" value="antwort2">
-                <label for="antwort2">antwort2</label><br>
+                    <input type="checkbox" id="antwort3" name="frage" value="antwort3">
+                    <label for="antwort3">antwort3</label><br>
 
-                <input type="checkbox" id="antwort3" name="frage" value="antwort3">
-                <label for="antwort3">antwort3</label><br>
+                    <input type="checkbox" id="antwort4" name="frage" value="antwort4">
+                    <label for="antwort4">antwort4</label><br>
 
-                <input type="checkbox" id="antwort4" name="frage" value="antwort4">
-                <label for="antwort4">antwort4</label><br>
-
-                <br>
-                <input type="submit" value="Antworten">
-            </form>
-
+                    <br>
+                    <input type="submit" value="Antworten">
+                </form>
+            </div>
             <p>Links müssen noch angepasst werden!</p>
             <a href="/woche1">Letzte Frage</a>
             <a href="/">Startseite</a>
