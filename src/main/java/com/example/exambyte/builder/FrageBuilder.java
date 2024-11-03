@@ -3,12 +3,14 @@ package com.example.exambyte.builder;
 import com.example.exambyte.data.FRAGETYP;
 import com.example.exambyte.data.Frage;
 
+import java.util.List;
+
 public class FrageBuilder {
     FRAGETYP frageTyp;
     String name;
     String fragestellung;
     Integer maxPunktzahl;
-    String antwortmöglichkeiten;
+    List<String> antwortmöglichkeiten;
     String antwort;
 
     public FrageBuilder() {
@@ -17,7 +19,7 @@ public class FrageBuilder {
         fragestellung = "dummyFragestellung";
         antwort = "dummyAntwort";
         maxPunktzahl = 1;
-        antwortmöglichkeiten = "dummyAntwortmöglichkeiten";
+        antwortmöglichkeiten = List.of("dummyAntwortmöglichkeit1", "dummyAntwortmöglichkeit2");
     }
 
     public FrageBuilder addFragetyp(FRAGETYP frageTyp) {
@@ -40,7 +42,7 @@ public class FrageBuilder {
         return this;
     }
 
-    public FrageBuilder addAntwortmöglichkeiten(String antwortmöglichkeiten){
+    public FrageBuilder addAntwortmöglichkeiten(List<String> antwortmöglichkeiten){
         this.antwortmöglichkeiten = antwortmöglichkeiten;
         return this;
     }
