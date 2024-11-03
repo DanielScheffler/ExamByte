@@ -70,10 +70,20 @@ public class ExamByteApplication {
 					.addFrage(frage1woche2)
 					.build();
 
+			Frage frage1woche3 = new FrageBuilder()
+					.addFragetyp(FRAGETYP.FRAGETYP_MULTIPLE_CHOICE)
+					.addName("Validierung 2")
+					.addFragestellung("Mit welcher Annotation muss ein Objekt in der Parameterliste der Handlermethode " +
+							"annotiert werden um die Validierunge anzuschalten?")
+					.addAntwortmöglichkeiten("@Valid, @Validate, @EnableValidation")
+					.addMaxPunktzahl(2)
+					.build();
+
 			WochenTest dummyTest3 = new TestBuilder()
 					.addName("Woche3")
 					.addStartTime(LocalDateTime.now().plusDays(4))
 					.addEndTime(LocalDateTime.now().plusDays(5))
+					.addFrage(frage1woche3)
 					.addStatus(STATUS.STATUS_NICHT_BESTANDEN)
 					.build();
 
