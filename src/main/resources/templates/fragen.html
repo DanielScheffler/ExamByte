@@ -7,13 +7,13 @@
           th:href="@{css/bootstrap.min.css}">
 </head>
 <body>
-<div class="container">
+<div class="container" th:object="${wochenTest}">
     <div class="row">
         <div class="col">
-            <h1>
+            <h1 th:text="*{name}">
                 Test ...
             </h1>
-            <p>Der Test lässt sich noch bis zum DD.MM.YYYY bearbeiten.</p>
+            <p>Der Test lässt sich noch bis zum <span th:text="*{endTime}">DD.MM.YYYY</span> bearbeiten.</p>
             <div class="text-center">
                 <table class="table">
                     <thead>
@@ -23,10 +23,13 @@
                         <th>Status</th>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody th:remove="all-but-first" th:each="frage : *{frageList}">
                     <tr>
-                        <th><a href="/woche1/frage1">Frage 1</a></th>
-                        <th>Freitext</th>
+                        <th><a href="/woche1/frage1"
+                               th:href="@{/{testname}/{fragename}(testname=*{name}, fragename=${frage.name})}"
+                               th:text="${frage.name()}">Frage 1</a>
+                        </th>
+                        <th th:text="${frage.fragetyp().getTyp()}">Freitext</th>
                         <th>In bearbeitung</th>
                     </tr>
                     <tr>
