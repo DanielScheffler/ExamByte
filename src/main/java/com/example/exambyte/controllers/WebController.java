@@ -1,10 +1,7 @@
 package com.example.exambyte.controllers;
 import com.example.exambyte.builder.FrageBuilder;
-import com.example.exambyte.builder.TestBuilder;
 import com.example.exambyte.data.*;
 import com.example.exambyte.service.WochenTestService;
-import org.springframework.boot.autoconfigure.web.client.RestTemplateAutoConfiguration;
-import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,9 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 public class WebController {
@@ -46,7 +41,9 @@ public class WebController {
     }
 
     @PostMapping("/testerstellung/fragenerstellung/speichern")
-    public String postFragenerstellung(FrageForm frageForm, Model model, @ModelAttribute ArrayList<Frage> fragen,
+    public String postFragenerstellung(FrageForm frageForm,
+                                       Model model,
+                                       @ModelAttribute ArrayList<Frage> fragen,
                                        RedirectAttributes redirectAttributes){
         Frage neueFrage = new FrageBuilder()
                 .addFragetyp(frageForm.fragetyp())
@@ -62,18 +59,19 @@ public class WebController {
 
     //Controller für Tests
     @GetMapping("/{wochentestname}/{fragename}")
-    public String fragen(Model model, @PathVariable String wochentestname, @PathVariable String fragename){
+    public String fragen(Model model,
+                         @PathVariable String wochentestname,
+                         @PathVariable String fragename){
         var maybewWochenTest = wochenTestService.getWochenTests().stream()
                 .filter(w -> w.getName().equals(wochentestname))
                 .findAny();
         if(maybewWochenTest.isPresent()){
             model.addAttribute("wochenTest", maybewWochenTest.get());
-            var maybeFrage = maybewWochenTest.get().getFrageList().stream()
+            var maybeFrage = maybewWochenTest.get().getFragen().stream()
                     .filter(f->f.name().equals(fragename))
                     .findAny();
             if(maybeFrage.isPresent()){
                 model.addAttribute("frage", maybeFrage.get());
-                System.out.println(maybeFrage.get().fragetyp().getTitle());
             }
         } else {
             model.addAttribute("error", "Keinen Wochentest mit diesem Namen gefunden.");
@@ -85,25 +83,6 @@ public class WebController {
     @GetMapping("/Woche1/frage1_korrektur")
     public String korrekturen(){
         return "korrekturen";
-    }
-
-    private List<Frage> initDummyFragen(){
-        Frage dummyFrage1 = new FrageBuilder()
-                .addFragetyp(FRAGETYP.FRAGETYP_FREITEXT)
-                .addName("Frage 1")
-                .addFragestellung("Warum ist die Banane krumm?")
-                .addMaxPunktzahl(2)
-                .addAntwortmöglichkeiten(null)
-                .build();
-        Frage dummyFrage2 = new FrageBuilder()
-                .addFragetyp(FRAGETYP.FRAGETYP_MULTIPLE_CHOICE)
-                .addName("Frage 2")
-                .addFragestellung("Was ist 2 + 2?")
-                .addMaxPunktzahl(2)
-                .addAntwortmöglichkeiten("3, 4, 5")
-                .build();
-
-        return List.of(dummyFrage1, dummyFrage2);
     }
 
 }

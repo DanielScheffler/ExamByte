@@ -41,7 +41,7 @@ public class ExamByteApplication {
 					.addFragetyp(FRAGETYP.FRAGETYP_MULTIPLE_CHOICE)
 					.addName("HTTP-Verben")
 					.addFragestellung("Welches dieser HTTP Verben ist safe?")
-					.addAntwortmöglichkeiten("GET, POST, PUT, DELETE")
+					.addAntwortmöglichkeiten(List.of("GET", "POST", "PUT", "DELETE"))
 					.addMaxPunktzahl(2)
 					.build();
 
@@ -58,7 +58,7 @@ public class ExamByteApplication {
 					.addFragetyp(FRAGETYP.FRAGETYP_MULTIPLE_CHOICE)
 					.addName("Validierung")
 					.addFragestellung("Mit welchem Objekt prüft man auf aufgetretene Validierungsfehler?")
-					.addAntwortmöglichkeiten("RedirectAttributes, Model, BindingResult")
+					.addAntwortmöglichkeiten(List.of("RedirectAttributes", "Model", "BindingResult"))
 					.addMaxPunktzahl(2)
 					.build();
 
@@ -75,7 +75,7 @@ public class ExamByteApplication {
 					.addName("Validierung 2")
 					.addFragestellung("Mit welcher Annotation muss ein Objekt in der Parameterliste der Handlermethode " +
 							"annotiert werden um die Validierunge anzuschalten?")
-					.addAntwortmöglichkeiten("@Valid, @Validate, @EnableValidation")
+					.addAntwortmöglichkeiten(List.of("@Valid", "@Validate", "@EnableValidation"))
 					.addMaxPunktzahl(2)
 					.build();
 

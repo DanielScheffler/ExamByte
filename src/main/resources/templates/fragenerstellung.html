@@ -21,7 +21,7 @@
             <label class="form-label" for="questionType">Fragentyp</label>
             <select class="form-control"  id="questionType" th:field="*{fragetyp}" th:remove="all-but-first">
                 <option th:each="typ : ${T(com.example.exambyte.data.FRAGETYP).values()}"
-                th:value="${typ}" th:text="${typ.getTyp()}"></option>
+                th:value="${typ}" th:text="${typ.getTitle()}"></option>
                 <option value="multipleChoice">Multiple Choice</option>
                 <option value="freitext">Freitext</option>
             </select>
