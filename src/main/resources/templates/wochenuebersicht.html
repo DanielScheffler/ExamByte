@@ -25,7 +25,8 @@
             <tbody th:remove="all-but-first">
             <tr th:each="test : ${tests}">
                 <td>
-                    <a th:href="@{/{name}(name=${test.name})}" th:text="${test.name}">Woche 1</a>
+                    <a th:href="@{/{name}/{fragename}(name=${test.name}, fragename=${test.getFrageList().getFirst().name})}"
+                       th:text="${test.name}">Woche 1</a>
                 </td>
                 <td>
                     <span th:text="${test.startTime}"> 01.01.2024 06:66</span>
