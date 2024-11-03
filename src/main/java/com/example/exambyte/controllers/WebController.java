@@ -36,8 +36,6 @@ public class WebController {
     //Controller für die Erstellung von Tests
     @GetMapping("/testerstellung")
     public String testerstellung(Model model){
-        //List<Frage> dummyFragen = initDummyFragen();
-        //model.addAttribute("fragen", dummyFragen);
         return "testerstellung";
     }
 
@@ -63,15 +61,22 @@ public class WebController {
     }
 
     //Controller für Tests
-    @GetMapping("/{name}")
-    public String fragen(Model model, @PathVariable String name){
+    @GetMapping("/{wochentestname}/{fragename}")
+    public String fragen(Model model, @PathVariable String wochentestname, @PathVariable String fragename){
         var maybewWochenTest = wochenTestService.getWochenTests().stream()
-                .filter(w -> w.getName().equals(name))
+                .filter(w -> w.getName().equals(wochentestname))
                 .findAny();
         if(maybewWochenTest.isPresent()){
             model.addAttribute("wochenTest", maybewWochenTest.get());
+            var maybeFrage = maybewWochenTest.get().getFrageList().stream()
+                    .filter(f->f.name().equals(fragename))
+                    .findAny();
+            if(maybeFrage.isPresent()){
+                model.addAttribute("frage", maybeFrage.get());
+                System.out.println(maybeFrage.get().fragetyp().getTitle());
+            }
         } else {
-            model.addAttribute("error", "Keinen Wochen Test mit diesem Namen gefunden.");
+            model.addAttribute("error", "Keinen Wochentest mit diesem Namen gefunden.");
         }
         return "fragen";
     }
