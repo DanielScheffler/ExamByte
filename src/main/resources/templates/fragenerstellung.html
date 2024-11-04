@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Fragenerstellung</title>
-    <link href="../static/css/bootstrap.min.css" rel="stylesheet"
+    <link href="../static/css/bootstrap/bootstrap.min.css" rel="stylesheet"
           th:href="@{css/bootstrap.min.css}">
     <style>
         td, th {
@@ -19,8 +19,8 @@
     <form method="post" action="/testerstellung/fragenerstellung/speichern" th:object="${frageForm}">
         <div>
             <label class="form-label" for="questionType">Fragentyp</label>
-            <select class="form-control"  id="questionType" th:field="*{fragetyp}" th:remove="all-but-first">
-                <option th:each="typ : ${T(com.example.exambyte.data.FRAGETYP).values()}"
+            <select class="form-control"  id="questionType" th:field="*{fragentyp}" th:remove="all-but-first">
+                <option th:each="typ : ${T(com.example.exambyte.data.FRAGENTYP).values()}"
                 th:value="${typ}" th:text="${typ.getTitle()}"></option>
                 <option value="multipleChoice">Multiple Choice</option>
                 <option value="freitext">Freitext</option>
@@ -50,7 +50,7 @@
                         <th>
                             <label for="antwort1" aria-label="Antwortmöglichkeit 1"></label>
                             <input class="form-control" type="text" id="antwort1" placeholder="Antwortmöglichkeit 1"
-                                   required th:field="*{antwortmöglichkeiten}"><br>
+                                   required th:field="*{antwortmoeglichkeiten}"><br>
                         </th>
                         <th>
                             <label for="antwort1correct" aria-label="Antwortmöglichkeit korrekt"></label>

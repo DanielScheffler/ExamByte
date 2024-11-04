@@ -2,10 +2,7 @@ package com.example.exambyte;
 
 import com.example.exambyte.builder.FrageBuilder;
 import com.example.exambyte.builder.TestBuilder;
-import com.example.exambyte.data.FRAGETYP;
-import com.example.exambyte.data.Frage;
-import com.example.exambyte.data.STATUS;
-import com.example.exambyte.data.WochenTest;
+import com.example.exambyte.data.*;
 import com.example.exambyte.service.WochenTestService;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
@@ -24,24 +21,27 @@ public class ExamByteApplication {
 	}
 
 	// Adds a few example WochenTest objects
-
 	@Bean
 	@Order(1)
 	ApplicationRunner addExampleWochentests(WochenTestService wochenTestService) {
 		return args -> {
 
 			Frage frage1woche1 = new FrageBuilder()
-					.addFragetyp(FRAGETYP.FRAGETYP_FREITEXT)
+					.addFragetyp(FRAGENTYP.FRAGENTYP_FREITEXT)
 					.addName("Routing")
 					.addFragestellung("Was versteht man unter Routing im Kontext von SpringWebMVC?")
 					.addMaxPunktzahl(2)
 					.build();
 
 			Frage frage2woche1 = new FrageBuilder()
-					.addFragetyp(FRAGETYP.FRAGETYP_MULTIPLE_CHOICE)
+					.addFragetyp(FRAGENTYP.FRAGENTYP_MULTIPLE_CHOICE)
 					.addName("HTTP-Verben")
 					.addFragestellung("Welches dieser HTTP Verben ist safe?")
-					.addAntwortmöglichkeiten(List.of("GET", "POST", "PUT", "DELETE"))
+					.addAntwortmoeglichkeiten(List.of(
+							new Antwortmoeglichkeit("GET", true),
+							new Antwortmoeglichkeit("POST", false),
+							new Antwortmoeglichkeit("PUT", false),
+							new Antwortmoeglichkeit("DELETE", false)))
 					.addMaxPunktzahl(2)
 					.build();
 
@@ -55,10 +55,13 @@ public class ExamByteApplication {
 					.build();
 
 			Frage frage1woche2 = new FrageBuilder()
-					.addFragetyp(FRAGETYP.FRAGETYP_MULTIPLE_CHOICE)
+					.addFragetyp(FRAGENTYP.FRAGENTYP_MULTIPLE_CHOICE)
 					.addName("Validierung")
 					.addFragestellung("Mit welchem Objekt prüft man auf aufgetretene Validierungsfehler?")
-					.addAntwortmöglichkeiten(List.of("RedirectAttributes", "Model", "BindingResult"))
+					.addAntwortmoeglichkeiten(List.of(
+							new Antwortmoeglichkeit("RedirectAttributes", true),
+							new Antwortmoeglichkeit("Model", false),
+							new Antwortmoeglichkeit("BindingResult", false)))
 					.addMaxPunktzahl(2)
 					.build();
 
@@ -71,11 +74,14 @@ public class ExamByteApplication {
 					.build();
 
 			Frage frage1woche3 = new FrageBuilder()
-					.addFragetyp(FRAGETYP.FRAGETYP_MULTIPLE_CHOICE)
+					.addFragetyp(FRAGENTYP.FRAGENTYP_MULTIPLE_CHOICE)
 					.addName("Validierung 2")
 					.addFragestellung("Mit welcher Annotation muss ein Objekt in der Parameterliste der Handlermethode " +
 							"annotiert werden um die Validierunge anzuschalten?")
-					.addAntwortmöglichkeiten(List.of("@Valid", "@Validate", "@EnableValidation"))
+					.addAntwortmoeglichkeiten(List.of(
+							new Antwortmoeglichkeit("@Valid", true),
+							new Antwortmoeglichkeit("@Validate", false),
+							new Antwortmoeglichkeit("@EnableValidation", false)))
 					.addMaxPunktzahl(2)
 					.build();
 

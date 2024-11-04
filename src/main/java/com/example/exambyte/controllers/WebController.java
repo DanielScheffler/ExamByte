@@ -1,5 +1,6 @@
 package com.example.exambyte.controllers;
 import com.example.exambyte.builder.FrageBuilder;
+import com.example.exambyte.builder.TestBuilder;
 import com.example.exambyte.data.*;
 import com.example.exambyte.service.WochenTestService;
 import org.springframework.stereotype.Controller;
@@ -9,8 +10,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.util.ArrayList;
 
 @Controller
 public class WebController {
@@ -22,43 +21,60 @@ public class WebController {
     }
 
     //Controller zur Startseite
-    @GetMapping("/")
+    @GetMapping("/ExamByte")
     public String wochenuebersicht(Model model){
         model.addAttribute("tests", wochenTestService.getWochenTests());
         return "wochenuebersicht";
     }
 
     //Controller für die Erstellung von Tests
-    @GetMapping("/testerstellung")
-    public String testerstellung(Model model){
+    @GetMapping("/ExamByte/testerstellung")
+    public String testerstellung(TestForm testForm){
         return "testerstellung";
     }
 
+    @PostMapping("/ExamByte/testerstellung")
+    public String testerstellung(@ModelAttribute TestForm testForm, Frage frage){
+
+        Frage neueFrage = new FrageBuilder()
+                .addName(frage.name())
+                .addFragestellung(frage.fragestellung())
+                .addMaxPunktzahl(frage.maxPunktzahl())
+                .addFragetyp(frage.fragetyp())
+                .build();
+
+        WochenTest neuerTest = new TestBuilder()
+                .addName(testForm.name())
+                .addStartTime(testForm.startTime())
+                .addEndTime(testForm.endTime())
+                .addFrage(neueFrage)
+                .addStatus(STATUS.STATUS_AUSSTEHEND)
+                .build();
+        wochenTestService.addWochenTest(neuerTest);
+        return "redirect:/";
+    }
+
     //Controller für die Erstellung von Fragen für Tests
-    @GetMapping("/testerstellung/fragenerstellung")
+    @GetMapping("/ExamByte/testerstellung/fragenerstellung")
     public String fragenerstellung(FrageForm frageForm){
         return "fragenerstellung";
     }
 
-    @PostMapping("/testerstellung/fragenerstellung/speichern")
-    public String postFragenerstellung(FrageForm frageForm,
-                                       Model model,
-                                       @ModelAttribute ArrayList<Frage> fragen,
-                                       RedirectAttributes redirectAttributes){
+    @PostMapping("/ExamByte/testerstellung/fragenerstellung/speichern")
+    public String postFragenerstellung(FrageForm frageForm, RedirectAttributes redirectAttributes){
         Frage neueFrage = new FrageBuilder()
                 .addFragetyp(frageForm.fragetyp())
                 .addName(frageForm.name())
                 .addFragestellung(frageForm.fragestellung())
                 .addMaxPunktzahl(frageForm.maxPunktzahl())
-                .addAntwortmöglichkeiten(frageForm.antwortmöglichkeiten())
+                .addAntwortmoeglichkeiten(frageForm.antwortmoeglichkeiten())
                 .build();
-        fragen.add(neueFrage);
-        redirectAttributes.addFlashAttribute("fragen", fragen);
+        redirectAttributes.addFlashAttribute("frage", neueFrage);
         return "redirect:/testerstellung";
     }
 
     //Controller für Tests
-    @GetMapping("/{wochentestname}/{fragename}")
+    @GetMapping("/ExamByte/{wochentestname}/{fragename}")
     public String fragen(Model model,
                          @PathVariable String wochentestname,
                          @PathVariable String fragename){
@@ -66,7 +82,7 @@ public class WebController {
                 .filter(w -> w.getName().equals(wochentestname))
                 .findAny();
         if(maybewWochenTest.isPresent()){
-            model.addAttribute("wochenTest", maybewWochenTest.get());
+            model.addAttribute("test", maybewWochenTest.get());
             var maybeFrage = maybewWochenTest.get().getFragen().stream()
                     .filter(f->f.name().equals(fragename))
                     .findAny();
@@ -80,7 +96,7 @@ public class WebController {
     }
 
     //Controller für die Korrektur von Fragen
-    @GetMapping("/Woche1/frage1_korrektur")
+    @GetMapping("ExamByte/Woche1/frage1_korrektur")
     public String korrekturen(){
         return "korrekturen";
     }

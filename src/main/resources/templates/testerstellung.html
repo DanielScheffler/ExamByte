@@ -3,65 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <title>Testerstellung</title>
-  <link href="../static/css/bootstrap.min.css" rel="stylesheet"
-        th:href="@{css/bootstrap.min.css}">
+  <link href="../static/css/bootstrap/bootstrap.min.css" rel="stylesheet"
+        th:href="@{css/bootstrap/bootstrap.min.css}">
 </head>
 <body>
 <h1 class="text-center">Erstellung eines neuen Tests</h1>
 <div class="container">
   <div class="row">
     <div class="col">
-        <form method="post" action="/testerstellung/speichern">
+        <form method="post" action="/ExamByte/testerstellung" th:object="${testForm}">
           <div>
             <label for="name">Name</label>
-            <input type="text" id="name" name="name" required>
-          </div>
-          <div>
-            <label for="testID">TestID</label>
-            <input type="text" id="testID" name="testID" required>
+            <input type="text" id="name" required th:field="*{name}">
           </div>
           <div>
             <label for="anfangsZeit">Beginn</label>
-            <input type="datetime-local" id="anfangsZeit" name="anfangsZeit" required>
+            <input type="datetime-local" id="anfangsZeit" required th:field="*{startTime}">
           </div>
           <div>
             <label for="endZeit">Ende</label>
-            <input type="datetime-local" id="endZeit" name="endZeit" required>
+            <input type="datetime-local" id="endZeit" required th:field="*{endTime}">
           </div>
           <div>
             <button type="submit">Test erstellen</button>
           </div>
         </form>
-        <form method="get" action="/testerstellung/fragenerstellung">
-          <button type="submit">Frage hinzufügen</button>
-        </form>
-    </div>
-    <div class = "row">
-      <h2>Fragen:</h2>
-      <table class="table">
-        <thead>
-        <tr>
-          <th>Fragentyp</th>
-          <th>Name</th>
-          <th>Frage</th>
-          <th>Antwortmöglichkeiten</th>
-        </tr>
-        </thead>
-        <tbody th:remove="all-but-first">
-        <tr th:each="frage : ${fragen}">
-          <td th:text="${frage.fragetyp.getTitle()}">Multiple Choice</td>
-          <td th:text="${frage.name}">Frage1</td>
-          <td th:text="${frage.fragestellung}">Thymeleaf zum Teufel</td>
-          <td th:text="${frage.antwortmöglichkeiten}?:''">antwort1, antwort2, antwort3</td>
-        </tr>
-        <tr>
-          <td>Freitext</td>
-          <td>Frage2</td>
-          <td>Warum ist HTML so kacke</td>
-          <td></td>
-        </tr>
-        </tbody>
-      </table>
     </div>
   </div>
 </div>
