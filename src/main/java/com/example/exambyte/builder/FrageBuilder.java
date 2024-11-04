@@ -16,13 +16,13 @@ public class FrageBuilder {
 
     public FrageBuilder() {
         frageTyp = FRAGENTYP.FRAGENTYP_FREITEXT;
-        name = "dummyName";
-        fragestellung = "dummyFragestellung";
-        antwort = "dummyAntwort";
-        maxPunktzahl = 1;
+        name = "";
+        fragestellung = "";
+        antwort = "";
+        maxPunktzahl = 0;
         antwortMoeglichkeiten = List.of(
-                new AntwortMoeglichkeit("dummyAntwortmöglichkeit1", true),
-                new AntwortMoeglichkeit("dummyAntwortmöglichkeit2", false));
+                new AntwortMoeglichkeit("", true),
+                new AntwortMoeglichkeit("", false));
     }
 
     public FrageBuilder addFragetyp(FRAGENTYP frageTyp) {
