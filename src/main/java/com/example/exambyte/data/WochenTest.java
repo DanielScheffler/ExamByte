@@ -1,5 +1,7 @@
 package com.example.exambyte.data;
 
+import com.example.exambyte.builder.FrageBuilder;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -62,7 +64,13 @@ public class WochenTest{
         return startTime;
     }
 
-    public List<Frage> getFragen() {return frageList;}
+    public List<Frage> getFragen() {
+        if(frageList.isEmpty()) {
+            return List.of(new FrageBuilder().build());
+        } else {
+            return frageList;
+        }
+    }
 
     public STATUS getStatus() {return status;}
 }
