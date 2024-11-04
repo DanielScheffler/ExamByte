@@ -24,7 +24,7 @@
                     <tbody th:remove="all-but-first">
                     <tr th:each="frageAusList : ${test.getFragen()}">
                         <th><a th:href="@{/ExamByte/{name}/{frageAusListName}(name=${test.name}, frageAusListName=${frageAusList.name})}" th:text="${frageAusList.name}">Frage 1</a></th>
-                        <th th:text="${frageAusList.fragentyp().getTitle()}">Freitext</th>
+                        <th th:text="${frageAusList.fragentyp().getTitle()}?:''">Freitext</th>
                         <th>In bearbeitung</th>
                     </tr>
                     <tr>
