@@ -1,6 +1,8 @@
 package com.example.exambyte.data;
 
 import java.time.LocalDateTime;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 public class WochenTest{
@@ -10,7 +12,7 @@ public class WochenTest{
     private String name;
     private STATUS status;
 
-    public WochenTest(List<Frage> frageList, LocalDateTime startTime, LocalDateTime endTime,String name, STATUS status) {
+    public WochenTest(LinkedList<Frage> frageList, LocalDateTime startTime, LocalDateTime endTime, String name, STATUS status) {
         this.frageList = frageList;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -24,8 +26,34 @@ public class WochenTest{
         frageList.add(frage);
     }
 
-    public Frage getFrage(int index){
-        return frageList.get(index);
+    public Frage getNextFrage(String name) {
+        for (int i = 0; i < frageList.size(); i++) {
+            if (frageList.get(i).name().equals(name)) {
+                if (i + 1> frageList.size() - 1) {
+                    return frageList.getFirst();
+                } else {
+                    return frageList.get(i + 1);
+                }
+            }
+        }
+        System.out.println("Keine Frage mit dem Namen gefunden");
+        return null; // keine Frage mit dem gegebenen Namen gefunden
+    }
+
+
+    public Frage getPrevFrage(String name) {
+        Frage previous = frageList.get(frageList.size()-1);
+        for (Frage frage : frageList) {
+            if (frage.name().equals(name)) {
+                return previous;
+            }
+            previous = frage;
+        }
+        return null;
+    }
+
+    public Frage getFrage(String name){
+        return frageList.stream().filter(e->e.name().equals(name)).findFirst().orElse(null);
     }
 
     public LocalDateTime getEndTime() {

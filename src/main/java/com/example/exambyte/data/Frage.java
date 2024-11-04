@@ -1,4 +1,6 @@
 package com.example.exambyte.data;
 
-public record Frage(String name, String fragestellung, Integer maxPunktzahl, String antwort) {
+import java.util.List;
+
+public record Frage(String name, String fragestellung, Integer maxPunktzahl, List<AntwortMoeglichkeit> antwortMoeglichkeiten, FRAGENTYP fragentyp) {
 }
