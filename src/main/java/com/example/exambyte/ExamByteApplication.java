@@ -34,14 +34,14 @@ public class ExamByteApplication {
 					.build();
 
 			Frage frage2woche1 = new FrageBuilder()
-					.addFragetyp(FRAGENTYP.FRAGENTYP_MULTIPLE_CHOICE)
+					.addFragetyp(FRAGENTYP.FRAGENTYP_MULTIPLECHOICE)
 					.addName("HTTP-Verben")
 					.addFragestellung("Welches dieser HTTP Verben ist safe?")
 					.addAntwortmoeglichkeiten(List.of(
-							new Antwortmoeglichkeit("GET", true),
-							new Antwortmoeglichkeit("POST", false),
-							new Antwortmoeglichkeit("PUT", false),
-							new Antwortmoeglichkeit("DELETE", false)))
+							new AntwortMoeglichkeit("GET", true),
+							new AntwortMoeglichkeit("POST", false),
+							new AntwortMoeglichkeit("PUT", false),
+							new AntwortMoeglichkeit("DELETE", false)))
 					.addMaxPunktzahl(2)
 					.build();
 
@@ -55,13 +55,13 @@ public class ExamByteApplication {
 					.build();
 
 			Frage frage1woche2 = new FrageBuilder()
-					.addFragetyp(FRAGENTYP.FRAGENTYP_MULTIPLE_CHOICE)
+					.addFragetyp(FRAGENTYP.FRAGENTYP_MULTIPLECHOICE)
 					.addName("Validierung")
 					.addFragestellung("Mit welchem Objekt prüft man auf aufgetretene Validierungsfehler?")
 					.addAntwortmoeglichkeiten(List.of(
-							new Antwortmoeglichkeit("RedirectAttributes", true),
-							new Antwortmoeglichkeit("Model", false),
-							new Antwortmoeglichkeit("BindingResult", false)))
+							new AntwortMoeglichkeit("RedirectAttributes", true),
+							new AntwortMoeglichkeit("Model", false),
+							new AntwortMoeglichkeit("BindingResult", false)))
 					.addMaxPunktzahl(2)
 					.build();
 
@@ -74,14 +74,14 @@ public class ExamByteApplication {
 					.build();
 
 			Frage frage1woche3 = new FrageBuilder()
-					.addFragetyp(FRAGENTYP.FRAGENTYP_MULTIPLE_CHOICE)
+					.addFragetyp(FRAGENTYP.FRAGENTYP_MULTIPLECHOICE)
 					.addName("Validierung 2")
 					.addFragestellung("Mit welcher Annotation muss ein Objekt in der Parameterliste der Handlermethode " +
 							"annotiert werden um die Validierunge anzuschalten?")
 					.addAntwortmoeglichkeiten(List.of(
-							new Antwortmoeglichkeit("@Valid", true),
-							new Antwortmoeglichkeit("@Validate", false),
-							new Antwortmoeglichkeit("@EnableValidation", false)))
+							new AntwortMoeglichkeit("@Valid", true),
+							new AntwortMoeglichkeit("@Validate", false),
+							new AntwortMoeglichkeit("@EnableValidation", false)))
 					.addMaxPunktzahl(2)
 					.build();
 

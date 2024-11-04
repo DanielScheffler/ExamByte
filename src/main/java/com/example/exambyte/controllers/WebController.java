@@ -20,6 +20,11 @@ public class WebController {
         this.wochenTestService = wochenTestService;
     }
 
+    @GetMapping("/")
+    public String index() {
+        return "redirect:/ExamByte";
+    }
+
     //Controller zur Startseite
     @GetMapping("/ExamByte")
     public String wochenuebersicht(Model model){
@@ -40,13 +45,13 @@ public class WebController {
                 .addName(frage.name())
                 .addFragestellung(frage.fragestellung())
                 .addMaxPunktzahl(frage.maxPunktzahl())
-                .addFragetyp(frage.fragetyp())
+                .addFragetyp(frage.fragentyp())
                 .build();
 
         WochenTest neuerTest = new TestBuilder()
                 .addName(testForm.name())
-                .addStartTime(testForm.startTime())
-                .addEndTime(testForm.endTime())
+                .addStartTime(testForm.startDate())
+                .addEndTime(testForm.endDate())
                 .addFrage(neueFrage)
                 .addStatus(STATUS.STATUS_AUSSTEHEND)
                 .build();
@@ -67,7 +72,7 @@ public class WebController {
                 .addName(frageForm.name())
                 .addFragestellung(frageForm.fragestellung())
                 .addMaxPunktzahl(frageForm.maxPunktzahl())
-                .addAntwortmoeglichkeiten(frageForm.antwortmoeglichkeiten())
+                .addAntwortmoeglichkeiten(frageForm.antwortMoeglichkeiten())
                 .build();
         redirectAttributes.addFlashAttribute("frage", neueFrage);
         return "redirect:/testerstellung";

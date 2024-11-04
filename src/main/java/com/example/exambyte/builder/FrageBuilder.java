@@ -1,6 +1,6 @@
 package com.example.exambyte.builder;
 
-import com.example.exambyte.data.Antwortmoeglichkeit;
+import com.example.exambyte.data.AntwortMoeglichkeit;
 import com.example.exambyte.data.FRAGENTYP;
 import com.example.exambyte.data.Frage;
 
@@ -11,7 +11,7 @@ public class FrageBuilder {
     String name;
     String fragestellung;
     Integer maxPunktzahl;
-    List<Antwortmoeglichkeit> antwortmöglichkeiten;
+    List<AntwortMoeglichkeit> antwortMoeglichkeiten;
     String antwort;
 
     public FrageBuilder() {
@@ -20,9 +20,9 @@ public class FrageBuilder {
         fragestellung = "dummyFragestellung";
         antwort = "dummyAntwort";
         maxPunktzahl = 1;
-        antwortmöglichkeiten = List.of(
-                new Antwortmoeglichkeit("dummyAntwortmöglichkeit1", true),
-                new Antwortmoeglichkeit("dummyAntwortmöglichkeit2", false));
+        antwortMoeglichkeiten = List.of(
+                new AntwortMoeglichkeit("dummyAntwortmöglichkeit1", true),
+                new AntwortMoeglichkeit("dummyAntwortmöglichkeit2", false));
     }
 
     public FrageBuilder addFragetyp(FRAGENTYP frageTyp) {
@@ -45,8 +45,8 @@ public class FrageBuilder {
         return this;
     }
 
-    public FrageBuilder addAntwortmoeglichkeiten(List<Antwortmoeglichkeit> antwortmöglichkeiten){
-        this.antwortmöglichkeiten = antwortmöglichkeiten;
+    public FrageBuilder addAntwortmoeglichkeiten(List<AntwortMoeglichkeit> antwortmöglichkeiten){
+        this.antwortMoeglichkeiten = antwortmöglichkeiten;
         return this;
     }
 
@@ -56,6 +56,6 @@ public class FrageBuilder {
     }
 
     public Frage build() {
-        return new Frage(frageTyp, name, fragestellung, maxPunktzahl, antwortmöglichkeiten, antwort);
+        return new Frage(name, fragestellung, maxPunktzahl, antwortMoeglichkeiten, frageTyp);
     }
 }
