@@ -65,7 +65,7 @@ public class WebController {
         return "fragenerstellung";
     }
 
-    @PostMapping("/ExamByte/testerstellung/fragenerstellung/speichern")
+    @PostMapping("/ExamByte/testerstellung/fragenerstellung")
     public String postFragenerstellung(FrageForm frageForm, RedirectAttributes redirectAttributes){
         Frage neueFrage = new FrageBuilder()
                 .addFragetyp(frageForm.fragetyp())
