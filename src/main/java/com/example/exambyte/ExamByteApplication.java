@@ -89,7 +89,6 @@ public class ExamByteApplication {
 					.addName("Woche3")
 					.addStartTime(LocalDateTime.now().plusDays(4))
 					.addEndTime(LocalDateTime.now().plusDays(5))
-					.addFrage(frage1woche3)
 					.addStatus(STATUS.STATUS_NICHT_BESTANDEN)
 					.build();
 
