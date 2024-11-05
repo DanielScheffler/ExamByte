@@ -4,6 +4,7 @@ import com.example.exambyte.data.AntwortMoeglichkeit;
 import com.example.exambyte.data.FRAGENTYP;
 import com.example.exambyte.data.Frage;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FrageBuilder {
@@ -11,7 +12,7 @@ public class FrageBuilder {
     String name;
     String fragestellung;
     Integer maxPunktzahl;
-    List<AntwortMoeglichkeit> antwortMoeglichkeiten;
+    List<AntwortMoeglichkeit> antwortMoeglichkeiten = new ArrayList<AntwortMoeglichkeit>();
     String antwort;
 
     public FrageBuilder() {
@@ -20,9 +21,6 @@ public class FrageBuilder {
         fragestellung = "";
         antwort = "";
         maxPunktzahl = 0;
-        antwortMoeglichkeiten = List.of(
-                new AntwortMoeglichkeit("", true),
-                new AntwortMoeglichkeit("", false));
     }
 
     public FrageBuilder addFragetyp(FRAGENTYP frageTyp) {
@@ -45,8 +43,8 @@ public class FrageBuilder {
         return this;
     }
 
-    public FrageBuilder addAntwortmoeglichkeiten(List<AntwortMoeglichkeit> antwortmöglichkeiten){
-        this.antwortMoeglichkeiten = antwortmöglichkeiten;
+    public FrageBuilder addAntwortmoeglichkeiten(List<AntwortMoeglichkeit> antwortMoeglichkeiten){
+        this.antwortMoeglichkeiten.addAll(antwortMoeglichkeiten);
         return this;
     }
 
