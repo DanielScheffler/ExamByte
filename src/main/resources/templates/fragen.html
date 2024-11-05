@@ -9,9 +9,9 @@
 <body>
 <div class="container">
     <div class="row">
+        <h1 th:text="${test.name}">Test...</h1>
+        <p>Der Test lässt sich noch bis zum <span th:text="${test.getEndTime}">dd.MM.yyyy</span> bearbeiten.</p>
         <div class="col">
-            <h1 th:text="${test.name}">Test...</h1>
-            <p th:text="${test.getEndTime}">Der Test lässt sich noch bis zum DD.MM.YYYY bearbeiten.</p>
             <div class="text-center">
                 <table class="table">
                     <thead>
@@ -23,20 +23,21 @@
                     </thead>
                     <tbody th:remove="all-but-first">
                     <tr th:each="frageAusList : ${test.getFragen()}">
-                        <th><a th:href="@{/ExamByte/{name}/{frageAusListName}(name=${test.name}, frageAusListName=${frageAusList.name})}" th:text="${frageAusList.name}">Frage 1</a></th>
-                        <th th:text="${frageAusList.fragentyp().getTitle()}?:''">Freitext</th>
-                        <th>In bearbeitung</th>
+                        <td><a th:href="@{/ExamByte/{name}/{frageAusListName}(name=${test.name}, frageAusListName=${frageAusList.name})}" th:text="${frageAusList.name}">Frage 1</a></td>
+                        <td th:text="${frageAusList.fragentyp().getTitle()}">Freitext</td>
+                        <td>In bearbeitung</td>
                     </tr>
                     <tr>
-                        <th><a href="/woche1/frage2">Frage 2</a></th>
-                        <th>Multiple Choice</th>
-                        <th>In bearbeitung</th>
+                        <td><a href="/woche1/frage2">Frage 2</a></td>
+                        <td>Multiple Choice</td>
+                        <td>In bearbeitung</td>
                     </tr>
                     </tbody>
                 </table>
+                <a class="btn-primary btn" th:href="@{/ExamByte/{testname}/fragenerstellung(testname=${test.name})}">Frage hinzufügen</a>
             </div>
         </div>
-        <div class="col">
+        <div class="col" th:unless="${test.getFragen().isEmpty()}">
             <div th:if="${frage.fragentyp().getTitle()} == 'Freitext'">
                 <h1 th:text="${frage.name} ?: 'Keine Daten Vorhanden!'">Fragenname(Frage 1)</h1>
                 <p th:text="${frage.fragestellung} ?: 'Keine Daten Vorhanden!'">Hier sollte die Frage stehen</p>
@@ -47,8 +48,6 @@
                     <input type="submit" value="Antworten">
                 </form>
             </div>
-        </div>
-        <div class="col">
             <div th:if="${frage.fragentyp().getTitle()} == 'Multiple Choice'">
                 <h1 th:text="${frage.name} ?: 'Keine Daten Vorhanden!'">Fragenname(Frage 1)</h1>
                 <p th:text="${frage.fragestellung} ?: 'Keine Daten Vorhanden!'">Hier sollte die Frage stehen</p>
@@ -65,10 +64,10 @@
         </div>
     </div>
     <div class="row">
-        <div>
-            <a th:href="@{/ExamByte/{name}/{prevFrage}(name=${test.name}, prevFrage=${test.getPrevFrage(frage.name()).name()})}">Vorherige Frage</a>
+        <div class="text-center">
+            <a th:unless="${test.getFragen().isEmpty()}" th:href="@{/ExamByte/{name}/{prevFrage}(name=${test.name}, prevFrage=${test.getPrevFrage(frage.name()).name()})}">Vorherige Frage</a>
             <a href="/ExamByte">Startseite</a>
-            <a th:href="@{/ExamByte/{name}/{nextFrage}(name=${test.name}, nextFrage=${test.getNextFrage(frage.name()).name()})}">Nächste Frage</a>
+            <a th:unless="${test.getFragen().isEmpty()}" th:href="@{/ExamByte/{name}/{nextFrage}(name=${test.name}, nextFrage=${test.getNextFrage(frage.name()).name()})}">Nächste Frage</a>
         </div>
     </div>
 </div>

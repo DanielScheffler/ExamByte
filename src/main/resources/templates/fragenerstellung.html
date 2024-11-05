@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Fragenerstellung</title>
     <link href="../static/css/bootstrap/bootstrap.min.css" rel="stylesheet"
-          th:href="@{css/bootstrap.min.css}">
+          th:href="@{/css/bootstrap/bootstrap.min.css}">
     <style>
         td, th {
         text-align: center;
@@ -16,7 +16,7 @@
 <div class="container pt-3">
     <h1 class="text-center">Fragenerstellung</h1>
 
-    <form method="post" action="/testerstellung/fragenerstellung" th:object="${frageForm}">
+    <form method="post" th:object="${frageForm}">
         <div>
             <label class="form-label" for="questionType">Fragentyp</label>
             <select class="form-control"  id="questionType" th:field="*{fragentyp}" th:remove="all-but-first">
@@ -35,7 +35,6 @@
             <textarea class="form-control"  id="questionText" rows="4" cols="50" required
                       th:field="*{fragestellung}"></textarea>
         </div>
-
         <div id="multipleChoiceOptions" style="display: table">
             <table class="table">
                 <thead>
@@ -46,19 +45,20 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th>
+                    <tr th:each=" antwortMoeglichkeit: *{antwortMoeglichkeiten}">
+                        <td>
                             <label for="antwort1" aria-label="Antwortmöglichkeit 1"></label>
                             <input class="form-control" type="text" id="antwort1" placeholder="Antwortmöglichkeit 1"
-                                   required th:field="*{antwortmoeglichkeiten}"><br>
-                        </th>
-                        <th>
+                                   th:field="*{antwortMoeglichkeit.text}"><br>
+                        </td>
+                        <td>
                             <label for="antwort1correct" aria-label="Antwortmöglichkeit korrekt"></label>
-                            <input class="" type="checkbox" id="antwort1correct" name="frage" value="antwort1">
-                        </th>
-                        <th>
+                            <input class="" type="checkbox" id="antwort1correct" name="frage" value="antwort1"
+                                   th:field="*{antwortMoeglichkeit.istWahr}">
+                        </td>
+                        <td>
                             <button class="btn btn-secondary" >Entfernen</button>
-                        </th>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -66,8 +66,10 @@
 
         <button class="btn btn-primary" type="submit">Frage speichern</button>
     </form>
-
-    <a href="/testerstellung">Zurück zur Testübersicht</a>
+    <a th:unless="${test.getFragen().isEmpty()}"
+       th:href="@{/ExamByte/{testname}/{fragenname}(testname=${test.name}, fragenname=${test.getFragen().getFirst().name})}">Zurück zur Testübersicht</a>
+    <a th:if="${test.getFragen().isEmpty()}"
+       th:href="@{/ExamByte/{testname}(testname=${test.name})}">Zurück zur Testübersicht</a>
 </div>
 </body>
 </html>

@@ -41,18 +41,10 @@ public class WebController {
     @PostMapping("/ExamByte/testerstellung")
     public String testerstellung(@ModelAttribute TestForm testForm, Frage frage){
 
-        Frage neueFrage = new FrageBuilder()
-                .addName(frage.name())
-                .addFragestellung(frage.fragestellung())
-                .addMaxPunktzahl(frage.maxPunktzahl())
-                .addFragetyp(frage.fragentyp())
-                .build();
-
         WochenTest neuerTest = new TestBuilder()
                 .addName(testForm.name())
-                .addStartTime(testForm.startDate())
-                .addEndTime(testForm.endDate())
-                .addFrage(neueFrage)
+                .addStartTime(testForm.startTime())
+                .addEndTime(testForm.endTime())
                 .addStatus(STATUS.STATUS_AUSSTEHEND)
                 .build();
         wochenTestService.addWochenTest(neuerTest);
@@ -60,35 +52,55 @@ public class WebController {
     }
 
     //Controller für die Erstellung von Fragen für Tests
-    @GetMapping("/ExamByte/testerstellung/fragenerstellung")
-    public String fragenerstellung(FrageForm frageForm){
+    @GetMapping("/ExamByte/{testname}/fragenerstellung")
+    public String fragenerstellung(FrageForm frageForm, @PathVariable String testname, Model model){
+        var maybeWochenTest = wochenTestService.getWochenTests().stream()
+                .filter(test -> test.getName().equals(testname))
+                .findAny();
+        if(maybeWochenTest.isPresent()){
+            model.addAttribute("test", maybeWochenTest.get());
+        }
         return "fragenerstellung";
     }
 
-    @PostMapping("/ExamByte/testerstellung/fragenerstellung")
-    public String postFragenerstellung(FrageForm frageForm, RedirectAttributes redirectAttributes){
+    @PostMapping("/ExamByte/{testname}/fragenerstellung")
+    public String postFragenerstellung(FrageForm frageForm, WochenTest test){
         Frage neueFrage = new FrageBuilder()
-                .addFragetyp(frageForm.fragetyp())
+                .addFragetyp(frageForm.fragentyp())
                 .addName(frageForm.name())
                 .addFragestellung(frageForm.fragestellung())
                 .addMaxPunktzahl(frageForm.maxPunktzahl())
                 .addAntwortmoeglichkeiten(frageForm.antwortMoeglichkeiten())
                 .build();
-        redirectAttributes.addFlashAttribute("frage", neueFrage);
-        return "redirect:/testerstellung";
+        test.addFrage(neueFrage);
+        return "redirect:/";
+    }
+
+    //Handler für einen Test ohne Fragen
+    @GetMapping("/ExamByte/{testname}")
+    public String fragenLeer(Model model, @PathVariable String testname){
+        var maybeWochenTest = wochenTestService.getWochenTests().stream()
+                .filter(w -> w.getName().equals(testname))
+                .findAny();
+        if(maybeWochenTest.isPresent()){
+            model.addAttribute("test", maybeWochenTest.get());
+        } else {
+            model.addAttribute("error", "Keinen Wochentest mit diesem Namen gefunden.");
+        }
+        return "fragen";
     }
 
     //Controller für Tests
-    @GetMapping("/ExamByte/{wochentestname}/{fragename}")
+    @GetMapping("/ExamByte/{testname}/{fragename}")
     public String fragen(Model model,
-                         @PathVariable String wochentestname,
+                         @PathVariable String testname,
                          @PathVariable String fragename){
-        var maybewWochenTest = wochenTestService.getWochenTests().stream()
-                .filter(w -> w.getName().equals(wochentestname))
+        var maybeWochenTest = wochenTestService.getWochenTests().stream()
+                .filter(w -> w.getName().equals(testname))
                 .findAny();
-        if(maybewWochenTest.isPresent()){
-            model.addAttribute("test", maybewWochenTest.get());
-            var maybeFrage = maybewWochenTest.get().getFragen().stream()
+        if(maybeWochenTest.isPresent()){
+            model.addAttribute("test", maybeWochenTest.get());
+            var maybeFrage = maybeWochenTest.get().getFragen().stream()
                     .filter(f->f.name().equals(fragename))
                     .findAny();
             if(maybeFrage.isPresent()){
