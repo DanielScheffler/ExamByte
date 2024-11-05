@@ -4,7 +4,13 @@
   <meta charset="UTF-8">
   <title>Testerstellung</title>
   <link href="../static/css/bootstrap/bootstrap.min.css" rel="stylesheet"
-        th:href="@{css/bootstrap/bootstrap.min.css}">
+        th:href="@{/css/bootstrap/bootstrap.min.css}">
+  <style>
+    td, th {
+      text-align: center;
+      vertical-align: middle;
+    }
+  </style>
 </head>
 <body>
 <h1 class="text-center">Erstellung eines neuen Tests</h1>
@@ -13,22 +19,25 @@
     <div class="col">
         <form method="post" action="/ExamByte/testerstellung" th:object="${testForm}">
           <div>
-            <label for="name">Name</label>
+            <label class="form-label" for="name">Name</label>
             <input type="text" id="name" required th:field="*{name}">
           </div>
           <div>
-            <label for="anfangsZeit">Beginn</label>
-            <input type="datetime-local" id="anfangsZeit" required th:field="*{startDate}">
+            <label class="form-label" for="anfangsZeit">Beginn</label>
+            <input class="form-control" type="datetime-local" id="anfangsZeit" required th:field="*{startTime}">
           </div>
           <div>
-            <label for="endZeit">Ende</label>
-            <input type="datetime-local" id="endZeit" required th:field="*{endDate}">
+            <label class="form-label" for="endZeit">Ende</label>
+            <input class="form-control" type="datetime-local" id="endZeit" required th:field="*{endTime}">
           </div>
           <div>
-            <button type="submit">Test erstellen</button>
+            <button class="btn-primary btn" type="submit">Test erstellen</button>
           </div>
         </form>
     </div>
+  </div>
+  <div class="row">
+    <a href="/ExamByte">Startseite</a>
   </div>
 </div>
 </body>
