@@ -4,6 +4,6 @@ import java.time.LocalDateTime;
 
 public record TestForm(
         String name,
-        LocalDateTime startDate,
-        LocalDateTime endDate) {
+        LocalDateTime startTime,
+        LocalDateTime endTime) {
 }
