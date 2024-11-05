@@ -10,7 +10,7 @@
 <div class="container">
     <div class="row">
         <h1 th:text="${test.name}">Test...</h1>
-        <p>Der Test lässt sich noch bis zum <span th:text="${test.getEndTime}">dd.MM.yyyy</span> bearbeiten.</p>
+        <p>Der Test lässt sich noch bis zum <span th:text="${#temporals.format(test.startTime, 'dd.MM.yyyy HH:mm')}">dd.MM.yyyy</span> bearbeiten.</p>
         <div class="col">
             <div class="text-center">
                 <table class="table">
