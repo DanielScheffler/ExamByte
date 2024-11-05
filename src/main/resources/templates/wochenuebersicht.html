@@ -25,7 +25,7 @@
             <tbody th:remove="all-but-first">
             <tr th:each="test : ${tests}">
                 <td >
-                    <div th:if="${!test.getFragen().isEmpty()}">
+                    <div th:unless="${test.getFragen().isEmpty()}">
                         <a th:href="@{/ExamByte/{name}/{fragename}(name=${test.name}, fragename=${(test.getFragen().getFirst().name)})}"
                            th:text="${test.name}">Woche 1</a>
                     </div>
