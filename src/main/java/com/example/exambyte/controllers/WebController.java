@@ -56,23 +56,29 @@ public class WebController {
         var maybeWochenTest = wochenTestService.getWochenTests().stream()
                 .filter(test -> test.getName().equals(testname))
                 .findAny();
-        if(maybeWochenTest.isPresent()){
-            model.addAttribute("test", maybeWochenTest.get());
-        }
+        maybeWochenTest.ifPresent(test -> model.addAttribute("test", test));
         return "fragenerstellung";
     }
 
     @PostMapping("/ExamByte/{testname}/fragenerstellung")
-    public String postFragenerstellung(FrageForm frageForm, WochenTest test){
-        Frage neueFrage = new FrageBuilder()
+    public String postFragenerstellung(FrageForm frageForm, @PathVariable String testname){
+        var maybeWochenTest = wochenTestService.getWochenTests().stream()
+                .filter(test -> test.getName().equals(testname))    
+                .findAny();
+        FrageBuilder neueBuildFrage = new FrageBuilder()
                 .addFragetyp(frageForm.fragentyp())
                 .addName(frageForm.name())
                 .addFragestellung(frageForm.fragestellung())
-                .addMaxPunktzahl(frageForm.maxPunktzahl())
-                .addAntwortmoeglichkeiten(frageForm.antwortMoeglichkeiten())
-                .build();
-        test.addFrage(neueFrage);
-        return "redirect:/";
+                .addMaxPunktzahl(frageForm.maxPunktzahl());
+        if(frageForm.fragentyp().equals(FRAGENTYP.FRAGENTYP_MULTIPLECHOICE)){
+                neueBuildFrage.addAntwortmoeglichkeiten(frageForm.antwortMoeglichkeiten());
+        }
+        Frage neueFrage = neueBuildFrage.build();
+        if(maybeWochenTest.isPresent()){
+            WochenTest test = maybeWochenTest.get();
+            test.addFrage(neueFrage);
+        }
+        return "redirect:/ExamByte/{testname}/"+ frageForm.name();
     }
 
     //Handler für einen Test ohne Fragen
