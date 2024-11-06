@@ -17,15 +17,18 @@
     <h1 class="text-center">Fragenerstellung</h1>
 
     <form method="post" th:object="${frageForm}">
+
+
         <div>
             <label class="form-label" for="questionType">Fragentyp</label>
-            <select class="form-control"  id="questionType" th:field="*{fragentyp}" th:remove="all-but-first">
+            <select class="form-control"  id="questionType" th:field="*{fragentyp}" th:remove="all-but-first" onchange="toggleOptionsVisibility()">
                 <option th:each="typ : ${T(com.example.exambyte.data.FRAGENTYP).values()}"
-                th:value="${typ}" th:text="${typ.getTitle()}"></option>
-                <option value="multipleChoice">Multiple Choice</option>
-                <option value="freitext">Freitext</option>
+                th:value="${typ}" th:text="${typ.getTitle()}" id="typ"></option>
+                <option value="multipleChoice" id="multipleChoice">Multiple Choice</option>
+                <option value="freitext" id="freitext">Freitext</option>
             </select>
         </div>
+
         <div>
             <label class="form-label" for="questionName">Name der Frage</label>
             <input class="form-control"  type="text" id="questionName" th:field="*{name}">
@@ -50,7 +53,7 @@
                    th:errors="*{maxPunktzahl}">maxPunktzahl Error</small>
 
         </div>
-        <div id="multipleChoiceOptions" style="display: table">
+        <div id="multipleChoiceOptions" style="display: none">
             <table class="table">
                 <thead>
                     <tr>
@@ -78,8 +81,9 @@
                 </tbody>
             </table>
         </div>
-
-        <button class="btn btn-primary" type="submit">Frage speichern</button>
+        <div>
+            <button class="btn btn-primary" type="submit">Frage speichern</button>
+        </div>
     </form>
     <a th:unless="${test.getFragen().isEmpty()}"
        th:href="@{/ExamByte/{testname}/{fragenname}(testname=${test.name}, fragenname=${test.getFragen().getFirst().name})}">Zurück zur Testübersicht</a>
@@ -87,4 +91,17 @@
        th:href="@{/ExamByte/{testname}(testname=${test.name})}">Zurück zur Testübersicht</a>
 </div>
 </body>
+<script>
+    function toggleOptionsVisibility() {
+        const questionType = document.getElementById("questionType").value;
+        const optionsSection = document.getElementById("multipleChoiceOptions");
+
+        if (questionType === `FRAGENTYP_FREITEXT`) {
+            optionsSection.style.display = "none";
+        } else if (questionType === `FRAGENTYP_MULTIPLECHOICE`){
+            optionsSection.style.display = "table";
+        }
+    }
+
+</script>
 </html>
