@@ -28,16 +28,27 @@
         </div>
         <div>
             <label class="form-label" for="questionName">Name der Frage</label>
-            <input class="form-control"  type="text" id="questionName" required th:field="*{name}">
+            <input class="form-control"  type="text" id="questionName" th:field="*{name}">
+            <small class="text-danger"
+                   th:if="${#fields.hasErrors('name')}"
+                   th:errors="*{name}">Name Error</small>
         </div>
         <div>
             <label class="form-label" for="questionText">Fragetext</label>
-            <textarea class="form-control"  id="questionText" rows="4" cols="50" required
+            <textarea class="form-control"  id="questionText" rows="4" cols="50"
                       th:field="*{fragestellung}"></textarea>
+            <small class="text-danger"
+                   th:if="${#fields.hasErrors('fragestellung')}"
+                   th:errors="*{fragestellung}">TextField Error</small>
         </div>
         <div>
             <label for="maxPunktzahl">Punktzahl:</label><br>
-            <input type="number" id="maxPunktzahl" name="maxPunktzahl" min="0" th:field="*{maxPunktzahl}"><br><br>
+            <input type="number" id="maxPunktzahl" name="maxPunktzahl"
+                   th:field="*{maxPunktzahl}"><br>
+            <small class="text-danger"
+                   th:if="${#fields.hasErrors('maxPunktzahl')}"
+                   th:errors="*{maxPunktzahl}">maxPunktzahl Error</small>
+
         </div>
         <div id="multipleChoiceOptions" style="display: table">
             <table class="table">
