@@ -20,15 +20,28 @@
         <form method="post" action="/ExamByte/testerstellung" th:object="${testForm}">
           <div>
             <label class="form-label" for="name">Name</label>
-            <input type="text" id="name" required th:field="*{name}">
+            <input type="text" id="name"
+                   th:field="*{name}">
+            <br>
+            <small class="text-danger"
+                   th:if="${#fields.hasErrors('name')}"
+                   th:errors="*{name}">Name Error</small>
           </div>
           <div>
             <label class="form-label" for="anfangsZeit">Beginn</label>
-            <input class="form-control" type="datetime-local" id="anfangsZeit" required th:field="*{startTime}">
+            <input class="form-control" type="datetime-local" id="anfangsZeit"
+                   th:field="*{startTime}">
+            <small class="text-danger"
+                   th:if="${#fields.hasErrors('startTime')}"
+                   th:errors="*{startTime}">StartTime Error</small>
           </div>
           <div>
             <label class="form-label" for="endZeit">Ende</label>
-            <input class="form-control" type="datetime-local" id="endZeit" required th:field="*{endTime}">
+            <input class="form-control" type="datetime-local" id="endZeit"
+                   th:field="*{endTime}">
+            <small class="text-danger"
+                   th:if="${#fields.hasErrors('endTime')}"
+                   th:errors="*{endTime}">EndTime Error</small>
           </div>
           <div>
             <button class="btn-primary btn" type="submit">Test erstellen</button>
