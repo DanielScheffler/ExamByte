@@ -1,9 +1,12 @@
 package com.example.exambyte.data;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 import java.time.LocalDateTime;
 
 public record TestForm(
-        String name,
-        LocalDateTime startTime,
-        LocalDateTime endTime) {
+        @NotBlank(message = "darf nicht leer sein") String name,
+        @NotNull(message = "darf nicht leer sein") LocalDateTime startTime,
+        @NotNull(message = "darf nicht leer sein") LocalDateTime endTime) {
 }
