@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class WebController {
@@ -29,7 +28,7 @@ public class WebController {
     @GetMapping("/ExamByte")
     public String wochenuebersicht(Model model){
         model.addAttribute("tests", wochenTestService.getWochenTests());
-        return "wochenuebersicht";
+        return "index";
     }
 
     //Controller für die Erstellung von Tests
@@ -87,7 +86,7 @@ public class WebController {
         } else {
             model.addAttribute("error", "Keinen Wochentest mit diesem Namen gefunden.");
         }
-        return "fragen";
+        return "wochentest";
     }
 
     //Controller für Tests
@@ -109,7 +108,7 @@ public class WebController {
         } else {
             model.addAttribute("error", "Keinen Wochentest mit diesem Namen gefunden.");
         }
-        return "fragen";
+        return "wochentest";
     }
 
     //Controller für die Korrektur von Fragen
