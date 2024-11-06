@@ -3,11 +3,12 @@ package com.example.exambyte.data;
 import com.example.exambyte.builder.FrageBuilder;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 public class WochenTest{
-    private List<Frage> frageList;
+    private List<Frage> frageList = new ArrayList<>();
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private String name;
@@ -24,7 +25,9 @@ public class WochenTest{
     public String getName() { return name; }
 
     public void addFrage(Frage frage){
-        frageList.add(frage);
+        if(getFrage(frage.name()) == null) {
+            frageList.add(frage);
+        }
     }
 
     public Frage getNextFrage(String name) {
@@ -38,7 +41,7 @@ public class WochenTest{
             }
         }
         System.out.println("Keine Frage mit dem Namen gefunden");
-        return null; // keine Frage mit dem gegebenen Namen gefunden
+        return null;
     }
 
 
