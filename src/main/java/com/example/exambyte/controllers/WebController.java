@@ -40,8 +40,10 @@ public class WebController {
     }
 
     @PostMapping("/ExamByte/testerstellung")
-    public String testerstellung(@ModelAttribute TestForm testForm, Frage frage){
-
+    public String testerstellung(@Valid TestForm testForm, BindingResult bindingResult, Frage frage){
+        if(bindingResult.hasErrors()){
+            return "testerstellung";
+        }
         WochenTest neuerTest = new TestBuilder()
                 .addName(testForm.name())
                 .addStartTime(testForm.startTime())
