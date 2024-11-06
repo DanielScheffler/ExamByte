@@ -3,8 +3,10 @@ import com.example.exambyte.builder.FrageBuilder;
 import com.example.exambyte.builder.TestBuilder;
 import com.example.exambyte.data.*;
 import com.example.exambyte.service.WochenTestService;
+import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -56,15 +58,24 @@ public class WebController {
         var maybeWochenTest = wochenTestService.getWochenTests().stream()
                 .filter(test -> test.getName().equals(testname))
                 .findAny();
-        maybeWochenTest.ifPresent(test -> model.addAttribute("test", test));
+        if(maybeWochenTest.isPresent()){
+            model.addAttribute("test", maybeWochenTest.get());
+        }
         return "fragenerstellung";
     }
 
     @PostMapping("/ExamByte/{testname}/fragenerstellung")
-    public String postFragenerstellung(FrageForm frageForm, @PathVariable String testname){
+    public String postFragenerstellung(@Valid FrageForm frageForm, BindingResult bindingResult, @PathVariable String testname, Model model){
         var maybeWochenTest = wochenTestService.getWochenTests().stream()
-                .filter(test -> test.getName().equals(testname))    
+                .filter(test -> test.getName().equals(testname))
                 .findAny();
+        if(maybeWochenTest.isPresent()){
+            model.addAttribute("test", maybeWochenTest.get());
+        }
+
+        if (bindingResult.hasErrors()){
+            return "fragenerstellung";
+        }
         FrageBuilder neueBuildFrage = new FrageBuilder()
                 .addFragetyp(frageForm.fragentyp())
                 .addName(frageForm.name())
@@ -74,9 +85,8 @@ public class WebController {
                 neueBuildFrage.addAntwortmoeglichkeiten(frageForm.antwortMoeglichkeiten());
         }
         Frage neueFrage = neueBuildFrage.build();
-        if(maybeWochenTest.isPresent()){
-            WochenTest test = maybeWochenTest.get();
-            test.addFrage(neueFrage);
+        if (maybeWochenTest.isPresent()){
+            maybeWochenTest.get().addFrage(neueFrage);
         }
         return "redirect:/ExamByte/{testname}/"+ frageForm.name();
     }
