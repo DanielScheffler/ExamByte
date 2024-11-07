@@ -1,6 +1,6 @@
 package com.example.exambyte.controllers;
 
-import com.example.exambyte.builder.TestBuilder;
+import com.example.exambyte.builder.WochenTestBuilder;
 import com.example.exambyte.data.Frage;
 import com.example.exambyte.data.STATUS;
 import com.example.exambyte.data.TestForm;
@@ -32,7 +32,7 @@ public class testerstellungController {
         if(bindingResult.hasErrors()){
             return "testerstellung";
         }
-        WochenTest neuerTest = new TestBuilder()
+        WochenTest neuerTest = new WochenTestBuilder()
                 .addName(testForm.name())
                 .addStartTime(testForm.startTime())
                 .addEndTime(testForm.endTime())
