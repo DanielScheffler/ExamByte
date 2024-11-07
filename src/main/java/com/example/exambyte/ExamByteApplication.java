@@ -1,7 +1,7 @@
 package com.example.exambyte;
 
 import com.example.exambyte.builder.FrageBuilder;
-import com.example.exambyte.builder.TestBuilder;
+import com.example.exambyte.builder.WochenTestBuilder;
 import com.example.exambyte.data.*;
 import com.example.exambyte.service.WochenTestService;
 import org.springframework.boot.ApplicationRunner;
@@ -45,7 +45,7 @@ public class ExamByteApplication {
 					.addMaxPunktzahl(2)
 					.build();
 
-			WochenTest dummyTest1 = new TestBuilder()
+			WochenTest dummyTest1 = new WochenTestBuilder()
 					.addName("Woche1")
 					.addStartTime(LocalDateTime.now())
 					.addEndTime(LocalDateTime.now().plusDays(1))
@@ -65,7 +65,7 @@ public class ExamByteApplication {
 					.addMaxPunktzahl(2)
 					.build();
 
-			WochenTest dummyTest2 = new TestBuilder()
+			WochenTest dummyTest2 = new WochenTestBuilder()
 					.addName("Woche2")
 					.addStartTime(LocalDateTime.now().plusDays(2))
 					.addEndTime(LocalDateTime.now().plusDays(3))
@@ -85,7 +85,7 @@ public class ExamByteApplication {
 					.addMaxPunktzahl(2)
 					.build();
 
-			WochenTest dummyTest3 = new TestBuilder()
+			WochenTest dummyTest3 = new WochenTestBuilder()
 					.addName("Woche3")
 					.addStartTime(LocalDateTime.now().plusDays(4))
 					.addEndTime(LocalDateTime.now().plusDays(5))
