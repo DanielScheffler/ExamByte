@@ -110,7 +110,7 @@
 
         neueReihe.innerHTML = `
         <td><input class="form-control" type="text" name="antwortMoeglichkeiten[${counter}].text" placeholder="Antwortmöglichkeit"></td>
-        <td><input type="checkbox" name="antwortMoeglichkeiten[${counter}].istWahr" id="${counter}"></td>
+        <td><input type="checkbox" name="antwortMoeglichkeiten[${counter}].istWahr"></td>
         <td><button type="button" class="btn btn-secondary remove-btn" onclick="antwortmoeglichkeitenEntfernen(this)">Entfernen</button></td>
     `;
         counter++;
@@ -119,10 +119,22 @@
 
     function antwortmoeglichkeitenEntfernen(button) {
         const reihe = button.closest("tr");
-        let id = reihe.id;
-
         reihe.remove();
+        counterReparieren();
     }
 
+    function counterReparieren() {
+        const reihen = document.querySelectorAll("#optionsTable tbody tr");
+        reihen.forEach((reihe, i) => {
+            const text = reihe.querySelector("input[type='text']");
+            text.name = `antwortMoeglichkeiten[${i}].text`;
+            text.id = `antwort${i}`;
+
+            const checkbox = reihe.querySelector("input[type='checkbox']");
+            checkbox.name = `antwortMoeglichkeiten[${i}].istWahr`;
+            checkbox.id = `antwort${i}correct`;
+        });
+        counter = reihen.length;
+    }
 </script>
 </html>
