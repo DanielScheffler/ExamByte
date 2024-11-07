@@ -21,9 +21,9 @@
 
         <div>
             <label class="form-label" for="questionType">Fragentyp</label>
-            <select class="form-control"  id="questionType" th:field="*{fragentyp}" th:remove="all-but-first" onchange="toggleOptionsVisibility()">
+            <select class="form-control"  id="questionType" th:field="*{fragentyp}" th:remove="all-but-first" onchange="antwortmoeglichkeitenAnzeigen()">
                 <option th:each="typ : ${T(com.example.exambyte.data.FRAGENTYP).values()}"
-                th:value="${typ}" th:text="${typ.getTitle()}" id="typ"></option>
+                th:value="${typ}" th:text="${typ.getTitle()}"></option>
                 <option value="multipleChoice" id="multipleChoice">Multiple Choice</option>
                 <option value="freitext" id="freitext">Freitext</option>
             </select>
@@ -54,7 +54,7 @@
 
         </div>
         <div id="multipleChoiceOptions" style="display: none">
-            <table class="table">
+            <table class="table" id="optionsTable">
                 <thead>
                     <tr>
                         <th>Antwortmöglichkeiten</th>
@@ -63,23 +63,24 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each=" antwortMoeglichkeit, itemStat: *{antwortMoeglichkeiten}">
+
+                    <tr th:each="antwort, itemStat : *{antwortMoeglichkeiten}">
                         <td>
                             <label for="antwort1" aria-label="Antwortmöglichkeit 1"></label>
-                            <input class="form-control" type="text" id="antwort1" placeholder="Antwortmöglichkeit 1"
-                                   th:field="*{antwortMoeglichkeiten[__${itemStat.index}__].text}"><br>
+                            <input class="form-control" type="text" id="antwort1" th:name="|antwortMoeglichkeiten[${itemStat.index}].text|" th:value="${antwort.text}" placeholder="Antwortmöglichkeit">
                         </td>
                         <td>
                             <label for="antwort1correct" aria-label="Antwortmöglichkeit korrekt"></label>
-                            <input class="" type="checkbox" id="antwort1correct" name="frage" value="antwort1"
-                                   th:field="*{antwortMoeglichkeiten[__${itemStat.index}__].istWahr}">
+                            <input class="" type="checkbox" id="antwort1correct" name="frage" th:checked="${antwort.istWahr()}">
                         </td>
                         <td>
-                            <button class="btn btn-secondary" >Entfernen</button>
+                            <button type="button" class="btn btn-secondary remove-btn" onclick="antwortmoeglichkeitenEntfernen(this)">Entfernen</button>
                         </td>
                     </tr>
+
                 </tbody>
             </table>
+            <button type="button" id="addOptionButton" class="btn btn-success" onclick="antwortmoeglichkeitenHinzufuegen()">Option hinzufügen</button>
         </div>
         <div>
             <button class="btn btn-primary" type="submit">Frage speichern</button>
@@ -92,15 +93,35 @@
 </div>
 </body>
 <script>
-    function toggleOptionsVisibility() {
-        const questionType = document.getElementById("questionType").value;
-        const optionsSection = document.getElementById("multipleChoiceOptions");
+    function antwortmoeglichkeitenAnzeigen() {
+        const antwortmoeglichkeiten = document.getElementById("questionType").value;
+        const multipleChoiceBereich = document.getElementById("multipleChoiceOptions");
 
-        if (questionType === `FRAGENTYP_FREITEXT`) {
-            optionsSection.style.display = "none";
-        } else if (questionType === `FRAGENTYP_MULTIPLECHOICE`){
-            optionsSection.style.display = "table";
+        if (antwortmoeglichkeiten === `FRAGENTYP_FREITEXT`) {
+            multipleChoiceBereich.style.display = "none";
+        } else if (antwortmoeglichkeiten === `FRAGENTYP_MULTIPLECHOICE`){
+            multipleChoiceBereich.style.display = "table";
         }
+    }
+    let counter = 0;
+    function antwortmoeglichkeitenHinzufuegen() {
+        const tabelle = document.getElementById("optionsTable").getElementsByTagName("tbody")[0];
+        const neueReihe = document.createElement("tr");
+
+        neueReihe.innerHTML = `
+        <td><input class="form-control" type="text" name="antwortMoeglichkeiten[${counter}].text" placeholder="Antwortmöglichkeit"></td>
+        <td><input type="checkbox" name="antwortMoeglichkeiten[${counter}].istWahr" id="${counter}"></td>
+        <td><button type="button" class="btn btn-secondary remove-btn" onclick="antwortmoeglichkeitenEntfernen(this)">Entfernen</button></td>
+    `;
+        counter++;
+        tabelle.appendChild(neueReihe);
+    }
+
+    function antwortmoeglichkeitenEntfernen(button) {
+        const reihe = button.closest("tr");
+        let id = reihe.id;
+
+        reihe.remove();
     }
 
 </script>
