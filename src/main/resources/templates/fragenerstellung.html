@@ -62,7 +62,7 @@
                         <th>Entfernen</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody th:if="${antwortMoeglichkeiten}">
 
                     <tr th:each="antwort, itemStat : *{antwortMoeglichkeiten}">
                         <td>
