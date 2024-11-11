@@ -49,7 +49,6 @@ public class fragenerstellungControllerTest {
                 .andExpect(status().isOk());
     }
 
-
     @Test
     @DisplayName("Auf der Seite /ExamByte/{testname}/fragenerstellung, lässt sich eine Frage mit dem Typ Freitext erstellen")
     void test_3() throws Exception {
@@ -66,4 +65,19 @@ public class fragenerstellungControllerTest {
                 .andExpect(redirectedUrl("/ExamByte/woche1/Frage1"));
     }
 
+    @Test
+    @DisplayName("Auf der Seite /ExamByte/{testname}/fragenerstellung, lässt sich eine Frage mit dem Typ Multiple Choice erstellen")
+    void test_4() throws Exception {
+        WochenTest woche1 = new WochenTestTestBuilder()
+                .addName("woche1").build();
+        when(testService.getWochenTests()).thenReturn(List.of(woche1));
+        String name = "Frage1";
+        FRAGENTYP typ = FRAGENTYP.FRAGENTYP_MULTIPLECHOICE;
+        mockMvc.perform(post("/ExamByte/woche1/fragenerstellung")
+                        .param("fragentyp", String.valueOf(typ))
+                        .param("name", name)
+                        .param("fragestellung", "Test Frage")
+                        .param("maxPunktzahl", "10"))
+                .andExpect(redirectedUrl("/ExamByte/woche1/Frage1"));
+    }
 }
