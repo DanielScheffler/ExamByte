@@ -46,7 +46,7 @@ public class indexControllerTest {
     }
 
     @Test
-    @DisplayName("")
+    @DisplayName("Der Get Request auf /ExamByte funktioniert mit einem Wochentests")
     void  test_3() throws Exception {
         List<WochenTest> testWochenTests = List.of(new WochenTest(new ArrayList<>(), LocalDateTime.MIN, LocalDateTime.MAX, "testWochenTest1", STATUS.STATUS_AUSSTEHEND));
         when(wochenTestService.getWochenTests()).thenReturn(testWochenTests);
