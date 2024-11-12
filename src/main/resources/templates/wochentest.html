@@ -8,7 +8,10 @@
 </head>
 <body>
 <div class="container">
-    <div class="row">
+    <div class="alert alert-warning" id="error-message" th:unless="${error} == null" th:text="${error}">
+        Fehlermeldung.
+    </div>
+    <div class="row" th:if="${error} == null">
         <h1 th:text="${test.name}">Test...</h1>
         <p>Der Test lässt sich noch bis zum <span th:text="${#temporals.format(test.startTime, 'dd.MM.yyyy HH:mm')}">dd.MM.yyyy</span> bearbeiten.</p>
         <div class="col">
@@ -65,9 +68,13 @@
     </div>
     <div class="row">
         <div class="text-center">
-            <a th:unless="${test.getFragen().isEmpty()}" th:href="@{/ExamByte/{name}/{prevFrage}(name=${test.name}, prevFrage=${test.getPrevFrage(frage.name()).name()})}">Vorherige Frage</a>
+            <a th:unless="${test.getFragen().isEmpty()}"
+               th:if="${error} == null"
+               th:href="@{/ExamByte/{name}/{prevFrage}(name=${test.name}, prevFrage=${test.getPrevFrage(frage.name()).name()})}">Vorherige Frage</a>
             <a href="/ExamByte">Startseite</a>
-            <a th:unless="${test.getFragen().isEmpty()}" th:href="@{/ExamByte/{name}/{nextFrage}(name=${test.name}, nextFrage=${test.getNextFrage(frage.name()).name()})}">Nächste Frage</a>
+            <a th:unless="${test.getFragen().isEmpty()}"
+               th:if="${error} == null"
+               th:href="@{/ExamByte/{name}/{nextFrage}(name=${test.name}, nextFrage=${test.getNextFrage(frage.name()).name()})}">Nächste Frage</a>
         </div>
     </div>
 </div>
