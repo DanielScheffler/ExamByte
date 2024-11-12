@@ -1,7 +1,6 @@
 package com.example.exambyte.WebMvcTests;
 
 import com.example.exambyte.controllers.indexController;
-import com.example.exambyte.data.FRAGENTYP;
 import com.example.exambyte.data.STATUS;
 import com.example.exambyte.data.WochenTest;
 import com.example.exambyte.service.WochenTestService;
