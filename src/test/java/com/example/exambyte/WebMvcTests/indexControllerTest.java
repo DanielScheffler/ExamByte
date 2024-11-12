@@ -56,4 +56,13 @@ public class indexControllerTest {
                 .andExpect(model().attributeExists("tests"))
                 .andExpect(model().attribute("tests", testWochenTests));
     }
+
+    @Test
+    @DisplayName("Der Get Request auf /ExamByte funktioniert, bei null Wochentests")
+    void  test_4() throws Exception {
+        when(wochenTestService.getWochenTests()).thenReturn(null);
+        mockMvc.perform(get("/ExamByte"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("index"));
+    }
 }
