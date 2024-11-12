@@ -13,14 +13,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(wochentestController.class)
@@ -69,5 +72,15 @@ public class wochentestControllerTest {
 
         //Assertion
         mockMvc.perform(get("/ExamByte/dummyTest/dummyFrage")).andExpect(status().isOk());
+    }
+
+    @Test
+    @DisplayName("Wenn ein Wochentest 'dummyTest' gesucht wird, der nicht gespeichert ist, dann ist das Routing auf" +
+            "/Exambyte/dummyTest vorhanden, und im Model ist das 'error' Attribut gesetzt.")
+    void test_3() throws Exception {
+        when(wochenTestService.getWochenTests()).thenReturn(List.of());
+        mockMvc.perform(get("/ExamByte/dummyTest"))
+                .andExpect(status().isOk())
+                .andExpect(model().attributeExists("error"));
     }
 }
