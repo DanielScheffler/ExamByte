@@ -33,7 +33,7 @@ public class wochentestControllerTest {
     WochenTestService wochenTestService;
 
     @Test
-    @DisplayName("Wenn ein Wochentest mit dem Namen dummyTest gespeichert ist, und dieser keine Fragen beinhaltet, dann ist die Route /ExamByte/dummyTest vorhanden.")
+    @DisplayName("Wenn ein leerer Wochentest 'dummyTest' gespeichert ist, dann ist die Route /ExamByte/dummyTest vorhanden.")
     void test_1() throws Exception {
 
         //Test stubben
@@ -69,6 +69,5 @@ public class wochentestControllerTest {
 
         //Assertion
         mockMvc.perform(get("/ExamByte/dummyTest/dummyFrage")).andExpect(status().isOk());
-
     }
 }
