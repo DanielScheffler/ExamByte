@@ -1,6 +1,8 @@
 package com.example.exambyte.WebMvcTests;
 
+import com.example.exambyte.builder.FrageBuilder;
 import com.example.exambyte.controllers.wochentestController;
+import com.example.exambyte.data.Frage;
 import com.example.exambyte.data.STATUS;
 import com.example.exambyte.data.WochenTest;
 import com.example.exambyte.service.WochenTestService;
@@ -44,5 +46,29 @@ public class wochentestControllerTest {
 
         //Assertion
         mockMvc.perform(get("/ExamByte/dummyTest")).andExpect(status().isOk());
+    }
+
+    @Test
+    @DisplayName("Wenn ein Wochentest 'dummyTest' mit der Frage 'dummyFrage' gespeichert ist, " +
+            "dann ist die Route /ExamByte/dummyTest/dummyFrage vorhanden.")
+    void test_2() throws Exception {
+
+        //Frage stubben
+        Frage frageStub = new FrageBuilder()
+                .addName("dummyFrage")
+                .build();
+
+        //Test stubben
+        WochenTest wochenTestStub = new WochenTestTestBuilder()
+                .addName("dummyTest")
+                .addFrage(frageStub)
+                .build();
+
+        //Service mocken
+        when(wochenTestService.getWochenTests()).thenReturn(List.of(wochenTestStub));
+
+        //Assertion
+        mockMvc.perform(get("/ExamByte/dummyTest/dummyFrage")).andExpect(status().isOk());
+
     }
 }
