@@ -65,4 +65,20 @@ public class indexControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("index"));
     }
+
+    @Test
+    @DisplayName("Der Get Request auf /ExamByte funktioniert, mit mehreren Wochentests")
+    void test_5() throws Exception {
+        WochenTest test1 = new WochenTest(new ArrayList<>(), LocalDateTime.MIN, LocalDateTime.MAX, "testWochenTest1", STATUS.STATUS_AUSSTEHEND);
+        WochenTest test2 = new WochenTest(new ArrayList<>(), LocalDateTime.MIN, LocalDateTime.MAX, "testWochenTest2", STATUS.STATUS_BEARBEITBAR);
+        WochenTest test3 = new WochenTest(new ArrayList<>(), LocalDateTime.MIN, LocalDateTime.MAX, "testWochenTest3", STATUS.STATUS_NICHT_BESTANDEN);
+        WochenTest test4 = new WochenTest(new ArrayList<>(), LocalDateTime.MIN, LocalDateTime.MAX, "testWochenTest4", STATUS.STATUS_IN_BEARBEITUNG);
+        List<WochenTest> testWochenTests = List.of(test1, test3, test4, test2);
+        when(wochenTestService.getWochenTests()).thenReturn(testWochenTests);
+        mockMvc.perform(get("/ExamByte"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("index"))
+                .andExpect(model().attributeExists("tests"))
+                .andExpect(model().attribute("tests", testWochenTests));
+    }
 }
