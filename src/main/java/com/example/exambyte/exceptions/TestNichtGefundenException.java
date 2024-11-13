@@ -1,4 +1,4 @@
 package com.example.exambyte.exceptions;
 
-public class TestNichtGefundenException {
+public class TestNichtGefundenException extends RuntimeException {
 }
