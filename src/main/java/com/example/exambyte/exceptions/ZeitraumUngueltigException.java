@@ -1,4 +1,4 @@
 package com.example.exambyte.exceptions;
 
-public class ZeitraumUngueltigException {
+public class ZeitraumUngueltigException extends RuntimeException {
 }
