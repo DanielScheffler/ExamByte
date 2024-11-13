@@ -17,8 +17,7 @@ import java.util.List;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(fragenerstellungController.class)
 public class fragenerstellungControllerTest {
@@ -46,6 +45,7 @@ public class fragenerstellungControllerTest {
                 .addName("woche1").build();
         when(testService.getWochenTests()).thenReturn(List.of(woche1));
         mockMvc.perform(post("/ExamByte/woche1/fragenerstellung"))
+                .andExpect(view().name("fragenerstellung"))
                 .andExpect(status().isOk());
     }
 
