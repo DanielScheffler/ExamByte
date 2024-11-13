@@ -1,5 +1,6 @@
 package com.example.exambyte.WebMvcTests;
 
+import com.example.exambyte.builder.WochenTestBuilder;
 import com.example.exambyte.controllers.indexController;
 import com.example.exambyte.data.STATUS;
 import com.example.exambyte.data.WochenTest;
@@ -48,7 +49,8 @@ public class indexControllerTest {
     @Test
     @DisplayName("Der Get Request auf /ExamByte funktioniert mit einem Wochentests")
     void  test_3() throws Exception {
-        List<WochenTest> testWochenTests = List.of(new WochenTest(new ArrayList<>(), LocalDateTime.MIN, LocalDateTime.MAX, "testWochenTest1", STATUS.STATUS_AUSSTEHEND));
+        WochenTest test = new WochenTestBuilder().addName("testWochenTest1").build();
+        List<WochenTest> testWochenTests = List.of(test);
         when(wochenTestService.getWochenTests()).thenReturn(testWochenTests);
         mockMvc.perform(get("/ExamByte"))
                 .andExpect(status().isOk())
@@ -69,10 +71,10 @@ public class indexControllerTest {
     @Test
     @DisplayName("Der Get Request auf /ExamByte funktioniert, mit mehreren Wochentests")
     void test_5() throws Exception {
-        WochenTest test1 = new WochenTest(new ArrayList<>(), LocalDateTime.MIN, LocalDateTime.MAX, "testWochenTest1", STATUS.STATUS_AUSSTEHEND);
-        WochenTest test2 = new WochenTest(new ArrayList<>(), LocalDateTime.MIN, LocalDateTime.MAX, "testWochenTest2", STATUS.STATUS_BEARBEITBAR);
-        WochenTest test3 = new WochenTest(new ArrayList<>(), LocalDateTime.MIN, LocalDateTime.MAX, "testWochenTest3", STATUS.STATUS_NICHT_BESTANDEN);
-        WochenTest test4 = new WochenTest(new ArrayList<>(), LocalDateTime.MIN, LocalDateTime.MAX, "testWochenTest4", STATUS.STATUS_IN_BEARBEITUNG);
+        WochenTest test1 = new WochenTestBuilder().addName("testWochenTest1").build();
+        WochenTest test2 = new WochenTestBuilder().addName("testWochenTest2").build();
+        WochenTest test3 = new WochenTestBuilder().addName("testWochenTest3").build();
+        WochenTest test4 = new WochenTestBuilder().addName("testWochenTest4").build();
         List<WochenTest> testWochenTests = List.of(test1, test3, test4, test2);
         when(wochenTestService.getWochenTests()).thenReturn(testWochenTests);
         mockMvc.perform(get("/ExamByte"))
