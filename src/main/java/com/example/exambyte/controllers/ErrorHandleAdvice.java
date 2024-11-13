@@ -1,9 +1,6 @@
 package com.example.exambyte.controllers;
 
-import com.example.exambyte.exceptions.FrageNichtGefundenException;
-import com.example.exambyte.exceptions.TestNichtGefundenException;
-import com.example.exambyte.exceptions.TestnameExistiertBereitsException;
-import com.example.exambyte.exceptions.ZeitraumUngueltigException;
+import com.example.exambyte.exceptions.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -33,6 +30,12 @@ public class ErrorHandleAdvice {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(TestnameExistiertBereitsException.class)
     public String handleTestnameExistiertBereitsException(TestnameExistiertBereitsException e) {
+        return e.getMessage();
+    }
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(FragennameExistiertBereitsException.class)
+    public String handleFragennameExistiertBereitsException(FragennameExistiertBereitsException e) {
         return e.getMessage();
     }
 
