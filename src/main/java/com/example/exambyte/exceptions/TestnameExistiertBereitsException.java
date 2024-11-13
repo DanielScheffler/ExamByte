@@ -1,4 +1,4 @@
 package com.example.exambyte.exceptions;
 
-public class TestnameExistiertBereitsException {
+public class TestnameExistiertBereitsException extends RuntimeException {
 }
