@@ -11,7 +11,7 @@ public class WochenTestService {
 
     WochenTestRepository wochenTestRepository;
 
-    WochenTestService(WochenTestRepository wochenTestRepository) {
+    public WochenTestService(WochenTestRepository wochenTestRepository) {
         this.wochenTestRepository = wochenTestRepository;
     }
 
