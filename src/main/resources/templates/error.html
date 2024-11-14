@@ -10,7 +10,7 @@
     <h1 class="text-center">
         Fehler
     </h1>
-    <h2 class="text-center" th:text="${fehlermeldung}">
+    <h2 class="text-center" th:text="${fehlermeldung} ?: _" >
         404 Page Not Found
     </h2>
 </body>
