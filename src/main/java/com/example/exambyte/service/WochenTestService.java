@@ -21,7 +21,7 @@ public class WochenTestService {
         boolean isPresent = wochenTestRepository.findAll().stream()
                 .map(WochenTest::getName).anyMatch(t->t.equals(wochenTest.getName()));
         if(isPresent) {
-            throw new TestnameExistiertBereitsException();
+            throw new TestnameExistiertBereitsException("Dieser Testname existiert bereits.");
         } else {
             wochenTestRepository.save(wochenTest);
         }
@@ -43,7 +43,7 @@ public class WochenTestService {
         if(maybeWochenTest.isPresent()) {
             return maybeWochenTest.get();
         } else {
-            throw new TestNichtGefundenException();
+            throw new TestNichtGefundenException("Dieser Test konnte nicht gefunden werden.");
         }
     }
 }
