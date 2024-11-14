@@ -3,6 +3,7 @@ package com.example.exambyte.data;
 import com.example.exambyte.builder.FrageBuilder;
 import com.example.exambyte.exceptions.FrageNichtGefundenException;
 import com.example.exambyte.exceptions.FragennameExistiertBereitsException;
+import com.example.exambyte.exceptions.ZeitraumUngueltigException;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -22,6 +23,9 @@ public class WochenTest{
         this.endTime = endTime;
         this.name = name;
         this.status = status;
+        if(endTime.isBefore(startTime) || endTime.isEqual(startTime) || startTime.isBefore(LocalDateTime.now())){
+            throw new ZeitraumUngueltigException();
+        }
     }
 
     public String getName() { return name; }
