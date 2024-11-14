@@ -2,6 +2,7 @@ package com.example.exambyte.service;
 
 import com.example.exambyte.data.WochenTest;
 import com.example.exambyte.exceptions.TestNichtGefundenException;
+import com.example.exambyte.exceptions.TestnameExistiertBereitsException;
 import com.example.exambyte.repositories.WochenTestRepository;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +18,13 @@ public class WochenTestService {
     }
 
     public void addWochenTest(WochenTest wochenTest) {
-        wochenTestRepository.save(wochenTest);
+        boolean isPresent = wochenTestRepository.findAll().stream()
+                .map(WochenTest::getName).anyMatch(t->t.equals(wochenTest.getName()));
+        if(isPresent) {
+            throw new TestnameExistiertBereitsException();
+        } else {
+            wochenTestRepository.save(wochenTest);
+        }
     }
 
     public List<WochenTest> getWochenTests() {
