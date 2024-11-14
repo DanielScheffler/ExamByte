@@ -52,7 +52,7 @@ public class WochenTest{
 
 
     public Frage getPrevFrage(String name) {
-        Frage previous = frageList.get(frageList.size()-1);
+        Frage previous = frageList.getLast();
         for (Frage frage : frageList) {
             if (frage.name().equals(name)) {
                 return previous;
