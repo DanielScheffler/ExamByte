@@ -70,7 +70,7 @@ public class WochenTest{
         if(maybeFrage.isPresent()){
             return maybeFrage.get();
         } else {
-            throw new FrageNichtGefundenException();
+            throw new FrageNichtGefundenException("Diese Frage konnte nicht gefunden werden!");
         }
     }
 
