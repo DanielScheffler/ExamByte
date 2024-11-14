@@ -21,7 +21,7 @@ public class WochenTest{
         this.endTime = endTime;
         this.name = name;
         this.status = status;
-        if(endTime.isBefore(startTime) || endTime.isEqual(startTime) || startTime.isBefore(LocalDateTime.now())){
+        if(endTime.isBefore(startTime) || endTime.isEqual(startTime)){
             throw new ZeitraumUngueltigException("Der gewählte Zeitraum ist nicht gültig!");
         }
     }
