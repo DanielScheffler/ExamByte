@@ -1,5 +1,7 @@
 package com.example.exambyte.controllers;
 
+import com.example.exambyte.data.Frage;
+import com.example.exambyte.data.WochenTest;
 import com.example.exambyte.service.WochenTestService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,14 +20,8 @@ public class wochentestController {
     //Handler für einen Test ohne Fragen
     @GetMapping("/ExamByte/{testname}")
     public String fragenLeer(Model model, @PathVariable String testname){
-        var maybeWochenTest = wochenTestService.getWochenTests().stream()
-                .filter(w -> w.getName().equals(testname))
-                .findAny();
-        if(maybeWochenTest.isPresent()){
-            model.addAttribute("test", maybeWochenTest.get());
-        } else {
-            model.addAttribute("error", "Keinen Wochentest mit diesem Namen gefunden.");
-        }
+        WochenTest wochenTest = wochenTestService.getWochenTest(testname);
+        model.addAttribute("test", wochenTest);
         return "wochentest";
     }
 
@@ -34,20 +30,10 @@ public class wochentestController {
     public String fragen(Model model,
                          @PathVariable String testname,
                          @PathVariable String fragename){
-        var maybeWochenTest = wochenTestService.getWochenTests().stream()
-                .filter(w -> w.getName().equals(testname))
-                .findAny();
-        if(maybeWochenTest.isPresent()){
-            model.addAttribute("test", maybeWochenTest.get());
-            var maybeFrage = maybeWochenTest.get().getFragen().stream()
-                    .filter(f->f.name().equals(fragename))
-                    .findAny();
-            if(maybeFrage.isPresent()){
-                model.addAttribute("frage", maybeFrage.get());
-            }
-        } else {
-            model.addAttribute("error", "Keinen Wochentest mit diesem Namen gefunden.");
-        }
+        WochenTest wochenTest = wochenTestService.getWochenTest(testname);
+        Frage frage = wochenTest.getFrage(fragename);
+        model.addAttribute("test", wochenTest);
+        model.addAttribute("frage", frage);
         return "wochentest";
     }
 }

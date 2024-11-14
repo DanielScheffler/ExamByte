@@ -1,6 +1,8 @@
 package com.example.exambyte.data;
 
 import com.example.exambyte.builder.FrageBuilder;
+import com.example.exambyte.exceptions.FrageNichtGefundenException;
+import com.example.exambyte.exceptions.FragennameExistiertBereitsException;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -25,8 +27,10 @@ public class WochenTest{
     public String getName() { return name; }
 
     public void addFrage(Frage frage){
-        if(getFrage(frage.name()) == null) {
+        if(frageList.stream().map(Frage::name).noneMatch(name -> name.equals(frage.name()))){
             frageList.add(frage);
+        } else {
+            throw new FragennameExistiertBereitsException("Frage " + frage.name() + " existiert bereits");
         }
     }
 
@@ -57,7 +61,13 @@ public class WochenTest{
     }
 
     public Frage getFrage(String name){
-        return frageList.stream().filter(e->e.name().equals(name)).findFirst().orElse(null);
+        var maybeFrage = frageList.stream().filter(frage -> frage.name().equals(name)).findFirst();
+
+        if(maybeFrage.isPresent()){
+            return maybeFrage.get();
+        } else {
+            throw new FrageNichtGefundenException();
+        }
     }
 
     public LocalDateTime getEndTime() {
