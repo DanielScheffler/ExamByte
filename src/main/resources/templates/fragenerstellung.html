@@ -16,9 +16,7 @@
 <div class="container pt-3">
     <h1 class="text-center">Fragenerstellung</h1>
 
-    <form method="post" th:object="${frageForm}">
-
-
+    <form method="post" th:action="@{/ExamByte/{testname}/fragenerstellung(testname=${test.name})}" th:object="${frageForm}">
         <div>
             <label class="form-label" for="questionType">Fragentyp</label>
             <select class="form-control"  id="questionType" th:field="*{fragentyp}" th:remove="all-but-first" onchange="antwortmoeglichkeitenAnzeigen()">

@@ -39,7 +39,7 @@ public class testerstellungController {
                 .addStatus(STATUS.STATUS_AUSSTEHEND)
                 .build();
         wochenTestService.addWochenTest(neuerTest);
-        return "redirect:/";
+        return "redirect:/ExamByte";
     }
 
 }

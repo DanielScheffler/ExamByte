@@ -19,7 +19,6 @@ public class WebSecurityConfiguration {
                         config -> config.userInfoEndpoint(
                                 info ->  info.userService(new AppUserService())
                         )
-
                 );
         return chainBuilder.build();
     }
