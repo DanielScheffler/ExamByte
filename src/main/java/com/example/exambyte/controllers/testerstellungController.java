@@ -7,6 +7,7 @@ import com.example.exambyte.data.TestForm;
 import com.example.exambyte.data.WochenTest;
 import com.example.exambyte.service.WochenTestService;
 import jakarta.validation.Valid;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +24,7 @@ public class testerstellungController {
 
     //Controller für die Erstellung von Tests
     @GetMapping("/ExamByte/testerstellung")
+    @Secured("ROLE_ORGANISATOR")
     public String testerstellung(TestForm testForm){
         return "testerstellung";
     }
