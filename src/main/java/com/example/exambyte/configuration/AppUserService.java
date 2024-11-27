@@ -44,13 +44,16 @@ public class AppUserService implements OAuth2UserService<OAuth2UserRequest, OAut
         }
         if(organisatoren.contains(id.toString())) {
             authorities.add(new SimpleGrantedAuthority("ROLE_ORGANISATOR"));
-            System.out.printf("GRANTING ORGANISATOR PRIVILEGES TO USER %s%n", login);
+            authorities.add(new SimpleGrantedAuthority("ROLE_KORREKTOR"));
+            authorities.add(new SimpleGrantedAuthority("ROLE_STUDENT"));
+            System.out.printf("GRANTING ALL PRIVILEGES TO USER %s%n", login);
         } else if (korrektoren.contains(id.toString())) {
             authorities.add(new SimpleGrantedAuthority("ROLE_KORREKTOR"));
-            System.out.printf("GRANTING KORREKTOR PRIVILEGES TO USER %s%n", login);
+            authorities.add(new SimpleGrantedAuthority("ROLE_STUDENT"));
+            System.out.printf("GRANTING SOME PRIVILEGES TO USER %s%n", login);
         } else if (studenten.contains(id.toString())) {
             authorities.add(new SimpleGrantedAuthority("ROLE_STUDENT"));
-            System.out.printf("GRANTING STUDENT PRIVILEGES TO USER %s%n", login);
+            System.out.printf("GRANTING LITTLE PRIVILEGES TO USER %s%n", login);
         } else {
             authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
             System.out.printf("DENYING PRIVILEGES TO USER %s%n", login);
