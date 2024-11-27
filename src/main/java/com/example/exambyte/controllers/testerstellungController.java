@@ -30,6 +30,7 @@ public class testerstellungController {
     }
 
     @PostMapping("/ExamByte/testerstellung")
+    @Secured("ROLE_ORGANISATOR")
     public String testerstellung(@Valid TestForm testForm, BindingResult bindingResult, Frage frage){
         if(bindingResult.hasErrors()){
             return "testerstellung";
