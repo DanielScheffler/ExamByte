@@ -3,6 +3,7 @@ package com.example.exambyte.controllers;
 import com.example.exambyte.data.Frage;
 import com.example.exambyte.data.WochenTest;
 import com.example.exambyte.service.WochenTestService;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +21,7 @@ public class wochentestController {
 
     //Handler für einen Test ohne Fragen
     @GetMapping("/ExamByte/{testname}")
+    @Secured("ROLE_STUDENT")
     public String fragenLeer(Model model, @PathVariable String testname){
         WochenTest wochenTest = wochenTestService.getWochenTest(testname);
         model.addAttribute("test", wochenTest);
@@ -28,6 +30,7 @@ public class wochentestController {
 
     //Controller für Tests
     @GetMapping("/ExamByte/{testname}/{fragename}")
+    @Secured("ROLE_STUDENT")
     public String fragen(Model model,
                          @PathVariable String testname,
                          @PathVariable String fragename){
@@ -39,6 +42,7 @@ public class wochentestController {
     }
 
     @PostMapping("ExamByte/{testname}/{fragename}")
+    @Secured("ROLE_STUDENT")
     public String antwortSpeichern(Model model,
                                    @PathVariable String testname,
                                    @PathVariable String fragename) {
