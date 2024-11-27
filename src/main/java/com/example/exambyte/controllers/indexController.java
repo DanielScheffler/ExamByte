@@ -1,6 +1,7 @@
 package com.example.exambyte.controllers;
 
 import com.example.exambyte.service.WochenTestService;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +22,7 @@ public class indexController {
 
     //Controller zur Startseite
     @GetMapping("/ExamByte")
+    @Secured("ROLE_STUDENT")
     public String wochenuebersicht(Model model){
         model.addAttribute("tests", wochenTestService.getWochenTests());
         return "index";
