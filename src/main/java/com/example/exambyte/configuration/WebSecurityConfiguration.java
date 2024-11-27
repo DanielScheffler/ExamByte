@@ -14,6 +14,7 @@ public class WebSecurityConfiguration {
                 c -> c.requestMatchers("/","/error", "/css/*", "/img/**").permitAll()
                         .anyRequest().authenticated()
         )
+                .logout(l-> l.logoutSuccessUrl("/").permitAll())
                 .oauth2Login(
                         config -> config.userInfoEndpoint(
                                 info ->  info.userService(new AppUserService())
