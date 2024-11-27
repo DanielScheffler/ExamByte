@@ -6,8 +6,7 @@ spring:
           github:
             client-id: ${CLIENT_ID}
             client-secret: ${CLIENT_SECRET}
-
-rover:
+exambyte:
   rollen:
     organisator: 114222016
     korrektor:

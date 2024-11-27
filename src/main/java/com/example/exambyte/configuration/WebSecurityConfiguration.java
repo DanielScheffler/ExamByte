@@ -2,6 +2,7 @@ package com.example.exambyte.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -15,11 +16,7 @@ public class WebSecurityConfiguration {
                         .anyRequest().authenticated()
         )
                 .logout(l-> l.logoutSuccessUrl("/").permitAll())
-                .oauth2Login(
-                        config -> config.userInfoEndpoint(
-                                info ->  info.userService(new AppUserService())
-                        )
-                );
+                .oauth2Login(Customizer.withDefaults());
         return chainBuilder.build();
     }
 
