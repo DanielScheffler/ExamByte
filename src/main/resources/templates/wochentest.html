@@ -45,7 +45,7 @@
                 <h1 th:text="${frage.name} ?: 'Keine Daten Vorhanden!'">Fragenname(Frage 1)</h1>
                 <p th:text="${frage.fragestellung} ?: 'Keine Daten Vorhanden!'">Hier sollte die Frage stehen</p>
                 <p th:text="'Mögliche Punktzahl: ' + ${frage.maxPunktzahl} ?: 'Keine Daten Vorhanden!'">Mögliche Punkte 10</p>
-                <form>
+                <form method="post" th:action="@{/ExamByte/{testname}/{fragename}(testname=${test.name}, fragename=${fragename})}">
                     <label for="antwort">Antwort:</label><br>
                     <textarea id="antwort" name="antwort" rows="4" cols="50" placeholder="Deine Antwort hier eingeben"></textarea>
                     <input type="submit" value="Antworten">
@@ -55,7 +55,7 @@
                 <h1 th:text="${frage.name} ?: 'Keine Daten Vorhanden!'">Fragenname(Frage 1)</h1>
                 <p th:text="${frage.fragestellung} ?: 'Keine Daten Vorhanden!'">Hier sollte die Frage stehen</p>
                 <p th:text="'Mögliche Punktzahl: ' + ${frage.maxPunktzahl} ?: 'Keine Daten Vorhanden!'">Mögliche Punkte 4</p>
-                <form>  <!--anstelle von multiple choice single choice benötigt type="radio" -->
+                <form method="post" th:action="@{/ExamByte/{testname}/{fragename}(testname=${test.name}, fragename=${fragename})}">
                     <div th:each="antwort : ${frage.antwortMoeglichkeiten()}">
                         <label th:text="${antwort.text()}" for="antwort1">antwort1</label>
                         <input type="checkbox" id="antwort1" name="frage" value="antwort1">
