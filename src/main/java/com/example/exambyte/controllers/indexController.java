@@ -16,7 +16,7 @@ public class indexController {
 
     @GetMapping("/")
     public String index() {
-        return "redirect:/ExamByte";
+        return "startseite";
     }
 
     //Controller zur Startseite
