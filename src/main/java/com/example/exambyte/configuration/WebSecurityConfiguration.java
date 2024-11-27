@@ -13,7 +13,13 @@ public class WebSecurityConfiguration {
         chainBuilder.authorizeHttpRequests(
                 c -> c.requestMatchers("/","/error", "/css/*", "/img/**").permitAll()
                         .anyRequest().authenticated()
-        );
+        )
+                .oauth2Login(
+                        config -> config.userInfoEndpoint(
+                                info ->  info.userService(new AppUserService())
+                        )
+
+                );
         return chainBuilder.build();
     }
 
