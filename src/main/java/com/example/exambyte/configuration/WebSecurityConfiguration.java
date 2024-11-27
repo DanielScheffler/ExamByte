@@ -12,7 +12,7 @@ public class WebSecurityConfiguration {
     @Bean
     public SecurityFilterChain configure(HttpSecurity chainBuilder) throws Exception {
         chainBuilder.authorizeHttpRequests(
-                c -> c.requestMatchers("/","/error", "/css/*", "/img/**").permitAll()
+                c -> c.requestMatchers("/","/error", "/css/**", "/img/**").permitAll()
                         .anyRequest().authenticated()
         )
                 .logout(l-> l.logoutSuccessUrl("/").permitAll())
