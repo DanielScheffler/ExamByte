@@ -38,7 +38,10 @@ public class fragenerstellungController {
 
     @PostMapping("/ExamByte/{testname}/fragenerstellung")
     @Secured("ROLE_ORGANISATOR")
-    public String postFragenerstellung(@Valid FrageForm frageForm, BindingResult bindingResult, @PathVariable String testname, Model model){
+    public String postFragenerstellung(@Valid FrageForm frageForm,
+                                       BindingResult bindingResult,
+                                       @PathVariable String testname,
+                                       Model model){
         var maybeWochenTest = wochenTestService.getWochenTests().stream()
                 .filter(test -> test.getName().equals(testname))
                 .findAny();
