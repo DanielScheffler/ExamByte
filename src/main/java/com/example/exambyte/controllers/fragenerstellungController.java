@@ -6,6 +6,7 @@ import com.example.exambyte.data.Frage;
 import com.example.exambyte.data.FrageForm;
 import com.example.exambyte.service.WochenTestService;
 import jakarta.validation.Valid;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,6 +25,7 @@ public class fragenerstellungController {
 
     //Controller für die Erstellung von Fragen für Tests
     @GetMapping("/ExamByte/{testname}/fragenerstellung")
+    @Secured("ROLE_ORGANISATOR")
     public String fragenerstellung(FrageForm frageForm, @PathVariable String testname, Model model){
         var maybeWochenTest = wochenTestService.getWochenTests().stream()
                 .filter(test -> test.getName().equals(testname))
@@ -35,6 +37,7 @@ public class fragenerstellungController {
     }
 
     @PostMapping("/ExamByte/{testname}/fragenerstellung")
+    @Secured("ROLE_ORGANISATOR")
     public String postFragenerstellung(@Valid FrageForm frageForm, BindingResult bindingResult, @PathVariable String testname, Model model){
         var maybeWochenTest = wochenTestService.getWochenTests().stream()
                 .filter(test -> test.getName().equals(testname))
