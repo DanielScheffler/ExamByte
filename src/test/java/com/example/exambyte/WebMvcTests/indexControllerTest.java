@@ -6,6 +6,8 @@ import com.example.exambyte.controllers.indexController;
 import com.example.exambyte.data.WochenTest;
 import com.example.exambyte.helper.WithMockOAuth2User;
 import com.example.exambyte.service.WochenTestService;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -105,5 +108,29 @@ public class indexControllerTest {
         when(wochenTestService.getWochenTests()).thenReturn(new ArrayList<>());
         mockMvc.perform(get("/ExamByte"))
                 .andExpect(status().isForbidden());
+    }
+
+    @Test
+    @DisplayName("Für Nutzer, die keine Organisatoren sind, wird kein Link zur Testerstellung ausgeliefert.")
+    @WithMockOAuth2User(roles= {"STUDENT", "KORREKTOR"})
+    void test_8() throws Exception {
+        String htmlText = mockMvc.perform(get("/ExamByte"))
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
+        Document html = Jsoup.parse(htmlText);
+        assertThat(html.select("a[href='/ExamByte/testerstellung']")).isEmpty();
+    }
+
+    @Test
+    @DisplayName("Für Nutzer, die Organisatoren sind, wird ein Link zur Testerstellung ausgeliefert.")
+    @WithMockOAuth2User(roles= {"STUDENT","ORGANISATOR"})
+    void test_9() throws Exception {
+        String htmlText = mockMvc.perform(get("/ExamByte"))
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
+        Document html = Jsoup.parse(htmlText);
+        assertThat(html.select("a[href='/ExamByte/testerstellung']")).isNotEmpty();
     }
 }
