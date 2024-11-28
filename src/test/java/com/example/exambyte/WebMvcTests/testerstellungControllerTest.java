@@ -7,7 +7,6 @@ import com.example.exambyte.service.WochenTestService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
@@ -22,7 +21,6 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 @WebMvcTest(testerstellungController.class)
 @Import(MethodSecurityConfig.class)
@@ -112,7 +110,7 @@ public class testerstellungControllerTest {
 
     @Test
     @DisplayName("Get Request auf /ExamByte/testerstellung ist Status Forbidden, für alle Rollen außer ORGANISATOR")
-    @WithMockOAuth2User(roles = {"STUDENT", "KORREKTOR"})
+    @WithMockOAuth2User(roles = "ORGANISATOR")
     void test_7() throws Exception {
         mockMvc.perform(get("/ExamByte/testerstellung"))
                 .andExpect(status().isForbidden());
