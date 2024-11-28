@@ -15,8 +15,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.List;
-
 import static org.mockito.Mockito.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -37,9 +35,10 @@ public class fragenerstellungControllerTest {
     @DisplayName("Die Seite /ExamByte/{testname}/fragenerstellung ist für Organisatoren vorhanden")
     @WithMockOAuth2User(roles={"ORGANISATOR"})
     void test_1() throws Exception {
+        String testname = "woche1";
         WochenTest woche1 = new WochenTestTestBuilder()
-                .addName("woche1").build();
-        when(testService.getWochenTests()).thenReturn(List.of(woche1));
+                .addName(testname).build();
+        when(testService.getWochenTest(testname)).thenReturn(woche1);
         mockMvc.perform(get("/ExamByte/woche1/fragenerstellung"))
                 .andExpect(status().isOk());
     }
@@ -48,9 +47,10 @@ public class fragenerstellungControllerTest {
     @DisplayName("Auf der Seite /ExamByte/{testname}/fragenerstellung können Organisatoren einen Post-Request ohne Inhalt senden")
     @WithMockOAuth2User(roles={"ORGANISATOR"})
     void test_2() throws Exception {
+        String testname = "woche1";
         WochenTest woche1 = new WochenTestTestBuilder()
-                .addName("woche1").build();
-        when(testService.getWochenTests()).thenReturn(List.of(woche1));
+                .addName(testname).build();
+        when(testService.getWochenTest(testname)).thenReturn(woche1);
         mockMvc.perform(post("/ExamByte/woche1/fragenerstellung").with(csrf()))
                 .andExpect(view().name("fragenerstellung"))
                 .andExpect(status().isOk());
@@ -60,9 +60,10 @@ public class fragenerstellungControllerTest {
     @DisplayName("Auf der Seite /ExamByte/{testname}/fragenerstellung können Organisatoren eine Frage mit dem Typ Freitext erstellen")
     @WithMockOAuth2User(roles={"ORGANISATOR"})
     void test_3() throws Exception {
+        String testname = "woche1";
         WochenTest woche1 = new WochenTestTestBuilder()
-                .addName("woche1").build();
-        when(testService.getWochenTests()).thenReturn(List.of(woche1));
+                .addName(testname).build();
+        when(testService.getWochenTest(testname)).thenReturn(woche1);
         String name = "Frage1";
         FRAGENTYP typ = FRAGENTYP.FRAGENTYP_FREITEXT;
         mockMvc.perform(post("/ExamByte/woche1/fragenerstellung")
@@ -78,15 +79,16 @@ public class fragenerstellungControllerTest {
     @DisplayName("Auf der Seite /ExamByte/{testname}/fragenerstellung können Organisatoren eine Frage mit dem Typ Multiple Choice erstellen")
     @WithMockOAuth2User(roles="ORGANISATOR")
     void test_4() throws Exception {
+        String testname = "woche1";
         WochenTest woche1 = new WochenTestTestBuilder()
-                .addName("woche1").build();
-        when(testService.getWochenTests()).thenReturn(List.of(woche1));
-        String name = "Frage1";
+                .addName(testname).build();
+        when(testService.getWochenTest(testname)).thenReturn(woche1);
+        String fragename = "Frage1";
         FRAGENTYP typ = FRAGENTYP.FRAGENTYP_MULTIPLECHOICE;
         mockMvc.perform(post("/ExamByte/woche1/fragenerstellung")
                         .with(csrf())
                         .param("fragentyp", String.valueOf(typ))
-                        .param("name", name)
+                        .param("name", fragename)
                         .param("fragestellung", "Test Frage")
                         .param("maxPunktzahl", "10"))
                 .andExpect(redirectedUrl("/ExamByte/woche1/Frage1"));

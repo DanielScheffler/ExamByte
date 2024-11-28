@@ -4,6 +4,7 @@ import com.example.exambyte.builder.FrageBuilder;
 import com.example.exambyte.data.FRAGENTYP;
 import com.example.exambyte.data.Frage;
 import com.example.exambyte.data.FrageForm;
+import com.example.exambyte.data.WochenTest;
 import com.example.exambyte.service.WochenTestService;
 import jakarta.validation.Valid;
 import org.springframework.security.access.annotation.Secured;
@@ -27,12 +28,8 @@ public class fragenerstellungController {
     @GetMapping("/ExamByte/{testname}/fragenerstellung")
     @Secured("ROLE_ORGANISATOR")
     public String fragenerstellung(FrageForm frageForm, @PathVariable String testname, Model model){
-        var maybeWochenTest = wochenTestService.getWochenTests().stream()
-                .filter(test -> test.getName().equals(testname))
-                .findAny();
-        if(maybeWochenTest.isPresent()){
-            model.addAttribute("test", maybeWochenTest.get());
-        }
+        WochenTest wochenTest = wochenTestService.getWochenTest(testname);
+        model.addAttribute("test", wochenTest);
         return "fragenerstellung";
     }
 
@@ -42,28 +39,22 @@ public class fragenerstellungController {
                                        BindingResult bindingResult,
                                        @PathVariable String testname,
                                        Model model){
-        var maybeWochenTest = wochenTestService.getWochenTests().stream()
-                .filter(test -> test.getName().equals(testname))
-                .findAny();
-        if(maybeWochenTest.isPresent()){
-            model.addAttribute("test", maybeWochenTest.get());
-        }
-
+        WochenTest wochenTest = wochenTestService.getWochenTest(testname);
+        model.addAttribute("test", wochenTest);
         if (bindingResult.hasErrors()){
             return "fragenerstellung";
         }
-        FrageBuilder neueBuildFrage = new FrageBuilder()
+        FrageBuilder neueFrageBuilder = new FrageBuilder()
                 .addFragetyp(frageForm.fragentyp())
                 .addName(frageForm.name())
                 .addFragestellung(frageForm.fragestellung())
                 .addMaxPunktzahl(frageForm.maxPunktzahl());
         if(frageForm.fragentyp().equals(FRAGENTYP.FRAGENTYP_MULTIPLECHOICE)){
-            neueBuildFrage.addAntwortmoeglichkeiten(frageForm.antwortMoeglichkeiten());
+            neueFrageBuilder.addAntwortmoeglichkeiten(frageForm.antwortMoeglichkeiten());
         }
-        Frage neueFrage = neueBuildFrage.build();
-        if (maybeWochenTest.isPresent()){
-            maybeWochenTest.get().addFrage(neueFrage);
-        }
+        Frage neueFrage = neueFrageBuilder.build();
+        wochenTest.addFrage(neueFrage);
         return "redirect:/ExamByte/{testname}/"+ frageForm.name();
+
     }
 }
