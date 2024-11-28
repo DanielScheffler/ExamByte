@@ -4,6 +4,7 @@ import com.example.exambyte.builder.FrageBuilder;
 import com.example.exambyte.configuration.MethodSecurityConfig;
 import com.example.exambyte.controllers.wochentestController;
 import com.example.exambyte.data.Frage;
+import com.example.exambyte.data.STATUS;
 import com.example.exambyte.data.WochenTest;
 import com.example.exambyte.helper.WithMockOAuth2User;
 import com.example.exambyte.service.WochenTestService;
@@ -31,12 +32,13 @@ public class wochentestControllerTest {
     WochenTestService wochenTestService;
 
     @Test
-    @DisplayName("Wenn ein leerer Wochentest 'dummyTest' gespeichert ist, dann ist die Route /ExamByte/dummyTest für Studenten vorhanden.")
+    @DisplayName("Wenn ein leerer Wochentest 'dummyTest' gespeichert ist, dann ist die Route /ExamByte/dummyTest für Studenten vorhanden, falls der Test nicht Ausstehend ist.")
     @WithMockOAuth2User(roles={"STUDENT"})
     void test_1() throws Exception {
         String testName = "dummyTest";
         WochenTest wochenTestStub = new WochenTestTestBuilder()
                 .addName(testName)
+                .addStatus(STATUS.STATUS_BEARBEITBAR)
                 .build();
         when(wochenTestService.getWochenTest(testName)).thenReturn(wochenTestStub);
         mockMvc.perform(get("/ExamByte/"+ testName)).andExpect(status().isOk());
@@ -44,7 +46,7 @@ public class wochentestControllerTest {
 
     @Test
     @DisplayName("Wenn ein Wochentest 'dummyTest' mit der Frage 'dummyFrage' gespeichert ist, " +
-            "dann ist die Route /ExamByte/dummyTest/dummyFrage für Studenten vorhanden.")
+            "dann ist die Route /ExamByte/dummyTest/dummyFrage für Studenten vorhanden, falls der Test nicht Ausstehend ist.")
     @WithMockOAuth2User(roles={"STUDENT"})
     void test_2() throws Exception {
         String frageName = "dummyFrage";
@@ -55,6 +57,7 @@ public class wochentestControllerTest {
         WochenTest wochenTestStub = new WochenTestTestBuilder()
                 .addName(testName)
                 .addFrage(frageStub)
+                .addStatus(STATUS.STATUS_BEARBEITBAR)
                 .build();
         when(wochenTestService.getWochenTest(testName)).thenReturn(wochenTestStub);
         mockMvc.perform(get("/ExamByte/" + testName + "/"+ frageName)).andExpect(status().isOk());
