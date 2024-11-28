@@ -38,6 +38,7 @@ public class indexControllerTest {
 
     @Test
     @DisplayName("Die Startseite ist unter / vorhanden und ist für alle Vorhanden")
+    @WithMockOAuth2User()
     void test_1() throws Exception {
         mockMvc.perform(get("/"))
                 .andExpect(status().isOk());
