@@ -42,23 +42,36 @@ public class AppUserService implements OAuth2UserService<OAuth2UserRequest, OAut
         if(id==null) {
             throw new OAuth2AuthenticationException(new OAuth2Error(OAuth2ErrorCodes.INVALID_REQUEST));
         }
-        if(organisatoren.contains(id.toString())) {
-            authorities.add(new SimpleGrantedAuthority("ROLE_ORGANISATOR"));
-            authorities.add(new SimpleGrantedAuthority("ROLE_KORREKTOR"));
-            authorities.add(new SimpleGrantedAuthority("ROLE_STUDENT"));
-            System.out.printf("GRANTING ALL PRIVILEGES TO USER %s%n", login);
-        } else if (korrektoren.contains(id.toString())) {
-            authorities.add(new SimpleGrantedAuthority("ROLE_KORREKTOR"));
-            authorities.add(new SimpleGrantedAuthority("ROLE_STUDENT"));
-            System.out.printf("GRANTING SOME PRIVILEGES TO USER %s%n", login);
-        } else if (studenten.contains(id.toString())) {
-            authorities.add(new SimpleGrantedAuthority("ROLE_STUDENT"));
-            System.out.printf("GRANTING LITTLE PRIVILEGES TO USER %s%n", login);
-        } else {
-            authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
-            System.out.printf("DENYING PRIVILEGES TO USER %s%n", login);
+        String role = determineRole(id);
+        switch (role){
+            case "ROLE_ORGANISATOR":
+                System.out.printf("GRANTING ALL PRIVILEGES TO USER %s%n", login);
+                authorities.add(new SimpleGrantedAuthority(role));
+            case "ROLE_KORREKTOR":
+                System.out.printf("GRANTING SOME PRIVILEGES TO USER %s%n", login);
+                authorities.add(new SimpleGrantedAuthority(role));
+            case "ROLE_STUDENT":
+                System.out.printf("GRANTING LITTLE PRIVILEGES TO USER %s%n", login);
+                authorities.add(new SimpleGrantedAuthority(role));
+                break;
+            default:
+                System.out.printf("DENYING PRIVILEGES TO USER %s%n", login);
+                authorities.add(new SimpleGrantedAuthority(role));
+                break;
         }
-
         return new DefaultOAuth2User(authorities, oAuth2User.getAttributes(), "id");
+    }
+
+    private String determineRole(int id){
+        if(organisatoren.contains(id)) {
+            return "ROLE_ORGANISATOR";
+        }
+        if(korrektoren.contains(id)) {
+            return "ROLE_KORREKTOR";
+        }
+        if(studenten.contains(id)) {
+            return "ROLE_STUDENT";
+        }
+        return "ROLE_USER";
     }
 }
