@@ -1,4 +1,4 @@
-package com.example.exambyte.data;
+package com.example.exambyte.domain.model;
 
 public enum FRAGENTYP {
     FRAGENTYP_FREITEXT ("Freitext"),

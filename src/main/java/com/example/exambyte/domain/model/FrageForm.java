@@ -1,4 +1,4 @@
-package com.example.exambyte.data;
+package com.example.exambyte.domain.model;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;

@@ -1,8 +1,8 @@
 package com.example.exambyte.unitTests;
 
-import com.example.exambyte.data.Frage;
-import com.example.exambyte.data.STATUS;
-import com.example.exambyte.data.WochenTest;
+import com.example.exambyte.domain.model.Frage;
+import com.example.exambyte.domain.model.STATUS;
+import com.example.exambyte.domain.model.WochenTest;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

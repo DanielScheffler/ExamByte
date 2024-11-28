@@ -1,8 +1,8 @@
 package com.example.exambyte.unitTests;
 
-import com.example.exambyte.data.AntwortMoeglichkeit;
-import com.example.exambyte.data.FRAGENTYP;
-import com.example.exambyte.data.Frage;
+import com.example.exambyte.domain.model.AntwortMoeglichkeit;
+import com.example.exambyte.domain.model.FRAGENTYP;
+import com.example.exambyte.domain.model.Frage;
 
 import java.util.ArrayList;
 import java.util.List;

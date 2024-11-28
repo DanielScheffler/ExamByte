@@ -1,8 +1,8 @@
 package com.example.exambyte.controllers;
 
-import com.example.exambyte.data.Frage;
-import com.example.exambyte.data.STATUS;
-import com.example.exambyte.data.WochenTest;
+import com.example.exambyte.domain.model.Frage;
+import com.example.exambyte.domain.model.STATUS;
+import com.example.exambyte.domain.model.WochenTest;
 import com.example.exambyte.exceptions.TestNichtGefundenException;
 import com.example.exambyte.service.WochenTestService;
 import org.springframework.security.access.annotation.Secured;

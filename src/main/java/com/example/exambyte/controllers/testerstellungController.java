@@ -1,10 +1,10 @@
 package com.example.exambyte.controllers;
 
 import com.example.exambyte.builder.WochenTestBuilder;
-import com.example.exambyte.data.Frage;
-import com.example.exambyte.data.STATUS;
-import com.example.exambyte.data.TestForm;
-import com.example.exambyte.data.WochenTest;
+import com.example.exambyte.domain.model.Frage;
+import com.example.exambyte.domain.model.STATUS;
+import com.example.exambyte.domain.model.TestForm;
+import com.example.exambyte.domain.model.WochenTest;
 import com.example.exambyte.service.WochenTestService;
 import jakarta.validation.Valid;
 import org.springframework.security.access.annotation.Secured;

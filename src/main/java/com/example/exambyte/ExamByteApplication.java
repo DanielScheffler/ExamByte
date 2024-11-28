@@ -2,7 +2,7 @@ package com.example.exambyte;
 
 import com.example.exambyte.builder.FrageBuilder;
 import com.example.exambyte.builder.WochenTestBuilder;
-import com.example.exambyte.data.*;
+import com.example.exambyte.domain.model.*;
 import com.example.exambyte.service.WochenTestService;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;

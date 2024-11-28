@@ -20,7 +20,7 @@
         <div>
             <label class="form-label" for="questionType">Fragentyp</label>
             <select class="form-control"  id="questionType" th:field="*{fragentyp}" th:remove="all-but-first" onchange="antwortmoeglichkeitenAnzeigen()">
-                <option th:each="typ : ${T(com.example.exambyte.data.FRAGENTYP).values()}"
+                <option th:each="typ : ${T(com.example.exambyte.domain.model.FRAGENTYP).values()}"
                 th:value="${typ}" th:text="${typ.getTitle()}"></option>
                 <option value="multipleChoice" id="multipleChoice">Multiple Choice</option>
                 <option value="freitext" id="freitext">Freitext</option>

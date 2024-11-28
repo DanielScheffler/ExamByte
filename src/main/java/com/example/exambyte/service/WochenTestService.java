@@ -1,6 +1,6 @@
 package com.example.exambyte.service;
 
-import com.example.exambyte.data.WochenTest;
+import com.example.exambyte.domain.model.WochenTest;
 import com.example.exambyte.exceptions.TestNichtGefundenException;
 import com.example.exambyte.exceptions.TestnameExistiertBereitsException;
 import com.example.exambyte.repositories.WochenTestRepository;

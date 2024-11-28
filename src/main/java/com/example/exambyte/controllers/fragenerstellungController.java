@@ -1,10 +1,10 @@
 package com.example.exambyte.controllers;
 
 import com.example.exambyte.builder.FrageBuilder;
-import com.example.exambyte.data.FRAGENTYP;
-import com.example.exambyte.data.Frage;
-import com.example.exambyte.data.FrageForm;
-import com.example.exambyte.data.WochenTest;
+import com.example.exambyte.domain.model.FRAGENTYP;
+import com.example.exambyte.domain.model.Frage;
+import com.example.exambyte.domain.model.FrageForm;
+import com.example.exambyte.domain.model.WochenTest;
 import com.example.exambyte.service.WochenTestService;
 import jakarta.validation.Valid;
 import org.springframework.security.access.annotation.Secured;
@@ -55,6 +55,5 @@ public class fragenerstellungController {
         Frage neueFrage = neueFrageBuilder.build();
         wochenTest.addFrage(neueFrage);
         return "redirect:/ExamByte/{testname}/"+ frageForm.name();
-
     }
 }
