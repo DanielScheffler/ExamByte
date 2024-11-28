@@ -14,6 +14,7 @@ public class ErrorHandleAdvice {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public String handleFrageNichtGefundenException(FrageNichtGefundenException e, Model model) {
         model.addAttribute("fehlermeldung", e.getMessage());
+        e.printStackTrace();
         return "error";
     }
 
@@ -21,6 +22,7 @@ public class ErrorHandleAdvice {
     @ExceptionHandler(TestNichtGefundenException.class)
     public String handleTestNichtGefundenException(TestNichtGefundenException e, Model model) {
         model.addAttribute("fehlermeldung", e.getMessage());
+        e.printStackTrace();
         return "error";
     }
 
@@ -28,6 +30,7 @@ public class ErrorHandleAdvice {
     @ExceptionHandler(ZeitraumUngueltigException.class)
     public String handleZeitraumUngueltigException(ZeitraumUngueltigException e, Model model) {
         model.addAttribute("fehlermeldung", e.getMessage());
+        e.printStackTrace();
         return "error";
     }
 
@@ -42,6 +45,7 @@ public class ErrorHandleAdvice {
     @ExceptionHandler(FragennameExistiertBereitsException.class)
     public String handleFragennameExistiertBereitsException(FragennameExistiertBereitsException e, Model model) {
         model.addAttribute("fehlermeldung", e.getMessage());
+        e.printStackTrace();
         return "error";
     }
 
