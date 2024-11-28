@@ -11,7 +11,9 @@
     <h1 class="text-center">
         ExamByte
     </h1>
-    <a href="/ExamByte/testerstellung">Test hinzufügen</a>
+    <div th:if="${authorities.contains('ROLE_ORGANISATOR')}">
+        <a href="/ExamByte/testerstellung">Test hinzufügen</a>
+    </div>
     <form th:action="@{/logout}" method="post">
         <input class="btn btn-dark" type="submit" value="Logout">
     </form>
