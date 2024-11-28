@@ -1,9 +1,14 @@
 package com.example.exambyte.controllers;
 
 import com.example.exambyte.data.Frage;
+import com.example.exambyte.data.STATUS;
 import com.example.exambyte.data.WochenTest;
+import com.example.exambyte.exceptions.TestNichtGefundenException;
 import com.example.exambyte.service.WochenTestService;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,8 +27,14 @@ public class wochentestController {
     //Handler für einen Test ohne Fragen
     @GetMapping("/ExamByte/{testname}")
     @Secured("ROLE_STUDENT")
-    public String fragenLeer(Model model, @PathVariable String testname){
+    public String fragenLeer(Model model,
+                             @PathVariable String testname,
+                             @AuthenticationPrincipal OAuth2User user){
         WochenTest wochenTest = wochenTestService.getWochenTest(testname);
+        if(wochenTest.getStatus().getTitle().equals("Ausstehend") &&
+                !user.getAuthorities().toString().contains("ROLE_ORGANISATOR")){
+            throw new TestNichtGefundenException("Der Test ist noch nicht freigeschaltet");
+        }
         model.addAttribute("test", wochenTest);
         return "wochentest";
     }
@@ -33,8 +44,13 @@ public class wochentestController {
     @Secured("ROLE_STUDENT")
     public String fragen(Model model,
                          @PathVariable String testname,
-                         @PathVariable String fragename){
+                         @PathVariable String fragename,
+                         @AuthenticationPrincipal OAuth2User user){
         WochenTest wochenTest = wochenTestService.getWochenTest(testname);
+        if(wochenTest.getStatus().getTitle().equals("Ausstehend") &&
+                !user.getAuthorities().toString().contains("ROLE_ORGANISATOR")){
+            throw new TestNichtGefundenException("Der Test ist noch nicht freigeschaltet");
+        }
         Frage frage = wochenTest.getFrage(fragename);
         model.addAttribute("test", wochenTest);
         model.addAttribute("frage", frage);
