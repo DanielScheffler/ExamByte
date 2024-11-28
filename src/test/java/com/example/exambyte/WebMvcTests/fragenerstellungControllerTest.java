@@ -93,4 +93,16 @@ public class fragenerstellungControllerTest {
                         .param("maxPunktzahl", "10"))
                 .andExpect(redirectedUrl("/ExamByte/woche1/Frage1"));
     }
+
+    @Test
+    @DisplayName("Die Seite /ExamByte/{testname}/fragenerstellung ist für alle Rollen außer Organisator forbidden")
+    @WithMockOAuth2User(roles={"STUDENT", "KORREKTOR"})
+    void test_5() throws Exception {
+        String testname = "woche1";
+        WochenTest woche1 = new WochenTestTestBuilder()
+                .addName(testname).build();
+        when(testService.getWochenTest(testname)).thenReturn(woche1);
+        mockMvc.perform(get("/ExamByte/woche1/fragenerstellung"))
+                .andExpect(status().isForbidden());
+    }
 }
