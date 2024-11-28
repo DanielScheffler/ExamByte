@@ -35,7 +35,6 @@ public class AppUserService implements OAuth2UserService<OAuth2UserRequest, OAut
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
         OAuth2User oAuth2User = defaultService.loadUser(userRequest);
         Set<GrantedAuthority> authorities = new HashSet<>(oAuth2User.getAuthorities());
-        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
 
         String login = oAuth2User.<String>getAttribute("login");
         Integer id = oAuth2User.<Integer>getAttribute("id");
@@ -57,6 +56,7 @@ public class AppUserService implements OAuth2UserService<OAuth2UserRequest, OAut
                 authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
                 break;
         }
+        System.out.println(authorities);
         return new DefaultOAuth2User(authorities, oAuth2User.getAttributes(), "id");
     }
 
