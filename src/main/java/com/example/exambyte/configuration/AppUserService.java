@@ -45,31 +45,29 @@ public class AppUserService implements OAuth2UserService<OAuth2UserRequest, OAut
         String role = determineRole(id);
         switch (role){
             case "ROLE_ORGANISATOR":
-                System.out.printf("GRANTING ALL PRIVILEGES TO USER %s%n", login);
-                authorities.add(new SimpleGrantedAuthority(role));
+                authorities.add(new SimpleGrantedAuthority("ROLE_ORGANISATOR"));
             case "ROLE_KORREKTOR":
-                System.out.printf("GRANTING SOME PRIVILEGES TO USER %s%n", login);
-                authorities.add(new SimpleGrantedAuthority(role));
+                authorities.add(new SimpleGrantedAuthority("ROLE_KORREKTOR"));
             case "ROLE_STUDENT":
-                System.out.printf("GRANTING LITTLE PRIVILEGES TO USER %s%n", login);
-                authorities.add(new SimpleGrantedAuthority(role));
+                System.out.printf("granting %s privileges to user: %s%n",role.substring(5), login);
+                authorities.add(new SimpleGrantedAuthority("ROLE_STUDENT"));
                 break;
             default:
-                System.out.printf("DENYING PRIVILEGES TO USER %s%n", login);
-                authorities.add(new SimpleGrantedAuthority(role));
+                System.out.printf("denying privileges to user: %s%n", login);
+                authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
                 break;
         }
         return new DefaultOAuth2User(authorities, oAuth2User.getAttributes(), "id");
     }
 
-    private String determineRole(int id){
-        if(organisatoren.contains(id)) {
+    private String determineRole(Integer id){
+        if(organisatoren.contains(id.toString())){
             return "ROLE_ORGANISATOR";
         }
-        if(korrektoren.contains(id)) {
+        if(korrektoren.contains(id.toString())) {
             return "ROLE_KORREKTOR";
         }
-        if(studenten.contains(id)) {
+        if(studenten.contains(id.toString())) {
             return "ROLE_STUDENT";
         }
         return "ROLE_USER";
