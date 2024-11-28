@@ -8,6 +8,6 @@ spring:
             client-secret: ${CLIENT_SECRET}
 exambyte:
   rollen:
-    organisator: 114222016
+    organisator: 114222016, 61031171
     korrektor:
     student: 114227946
