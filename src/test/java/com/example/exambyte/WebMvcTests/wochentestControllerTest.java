@@ -34,15 +34,12 @@ public class wochentestControllerTest {
     @DisplayName("Wenn ein leerer Wochentest 'dummyTest' gespeichert ist, dann ist die Route /ExamByte/dummyTest für Studenten vorhanden.")
     @WithMockOAuth2User(roles={"STUDENT"})
     void test_1() throws Exception {
-
         String testName = "dummyTest";
         WochenTest wochenTestStub = new WochenTestTestBuilder()
                 .addName(testName)
                 .build();
-
         when(wochenTestService.getWochenTest(testName)).thenReturn(wochenTestStub);
-
-        mockMvc.perform(get("/ExamByte/dummyTest")).andExpect(status().isOk());
+        mockMvc.perform(get("/ExamByte/"+ testName)).andExpect(status().isOk());
     }
 
     @Test
@@ -50,19 +47,16 @@ public class wochentestControllerTest {
             "dann ist die Route /ExamByte/dummyTest/dummyFrage für Studenten vorhanden.")
     @WithMockOAuth2User(roles={"STUDENT"})
     void test_2() throws Exception {
-
+        String frageName = "dummyFrage";
         Frage frageStub = new FrageBuilder()
-                .addName("dummyFrage")
+                .addName(frageName)
                 .build();
-
         String testName = "dummyTest";
         WochenTest wochenTestStub = new WochenTestTestBuilder()
                 .addName(testName)
                 .addFrage(frageStub)
                 .build();
-
         when(wochenTestService.getWochenTest(testName)).thenReturn(wochenTestStub);
-
-        mockMvc.perform(get("/ExamByte/dummyTest/dummyFrage")).andExpect(status().isOk());
+        mockMvc.perform(get("/ExamByte/" + testName + "/"+ frageName)).andExpect(status().isOk());
     }
 }
