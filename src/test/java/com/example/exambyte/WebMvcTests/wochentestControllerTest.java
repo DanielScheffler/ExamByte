@@ -59,4 +59,17 @@ public class wochentestControllerTest {
         when(wochenTestService.getWochenTest(testName)).thenReturn(wochenTestStub);
         mockMvc.perform(get("/ExamByte/" + testName + "/"+ frageName)).andExpect(status().isOk());
     }
+
+    @Test
+    @DisplayName("Die Route /ExamByte/dummyTest ist für USER forbidden")
+    @WithMockOAuth2User()
+    void test_3() throws Exception {
+        String testName = "dummyTest";
+        WochenTest wochenTestStub = new WochenTestTestBuilder()
+                .addName(testName)
+                .build();
+        when(wochenTestService.getWochenTest(testName)).thenReturn(wochenTestStub);
+        mockMvc.perform(get("/ExamByte/"+ testName))
+                .andExpect(status().isForbidden());
+    }
 }
