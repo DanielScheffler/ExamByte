@@ -35,6 +35,7 @@ public class wochentestController {
                 !user.getAuthorities().toString().contains("ROLE_ORGANISATOR")){
             throw new TestNichtGefundenException("Der Test ist noch nicht freigeschaltet");
         }
+        model.addAttribute("authorities", user.getAuthorities().toString());
         model.addAttribute("test", wochenTest);
         return "wochentest";
     }
@@ -52,6 +53,7 @@ public class wochentestController {
             throw new TestNichtGefundenException("Der Test ist noch nicht freigeschaltet");
         }
         Frage frage = wochenTest.getFrage(fragename);
+        model.addAttribute("authorities", user.getAuthorities().toString());
         model.addAttribute("test", wochenTest);
         model.addAttribute("frage", frage);
         return "wochentest";

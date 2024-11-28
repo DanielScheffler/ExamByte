@@ -37,7 +37,9 @@
                     </tr>
                     </tbody>
                 </table>
-                <a class="btn-primary btn" th:href="@{/ExamByte/{testname}/fragenerstellung(testname=${test.name})}">Frage hinzufügen</a>
+                <div th:if="${authorities.contains('ROLE_ORGANISATOR')}">
+                    <a class="btn-primary btn" th:href="@{/ExamByte/{testname}/fragenerstellung(testname=${test.name})}">Frage hinzufügen</a>
+                </div>
             </div>
         </div>
         <div class="col" th:unless="${test.getFragen().isEmpty()}">
