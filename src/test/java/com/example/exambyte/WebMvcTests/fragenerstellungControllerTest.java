@@ -105,4 +105,17 @@ public class fragenerstellungControllerTest {
         mockMvc.perform(get("/ExamByte/woche1/fragenerstellung"))
                 .andExpect(status().isForbidden());
     }
+
+    @Test
+    @DisplayName("Auf der Seite /ExamByte/{testname}/fragenerstellung kann keine Rolle außer Organisator einen Post-Request ohne Inhalt senden")
+    @WithMockOAuth2User(roles={"STUDENT", "KORREKTOR"})
+    void test_6() throws Exception {
+        String testname = "woche1";
+        WochenTest woche1 = new WochenTestTestBuilder()
+                .addName(testname).build();
+        when(testService.getWochenTest(testname)).thenReturn(woche1);
+        mockMvc.perform(post("/ExamByte/woche1/fragenerstellung").with(csrf()))
+                .andExpect(status().isForbidden());
+    }
+
 }
