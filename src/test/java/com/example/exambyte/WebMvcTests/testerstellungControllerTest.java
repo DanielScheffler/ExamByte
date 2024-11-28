@@ -110,7 +110,7 @@ public class testerstellungControllerTest {
 
     @Test
     @DisplayName("Get Request auf /ExamByte/testerstellung ist Status Forbidden, für alle Rollen außer ORGANISATOR")
-    @WithMockOAuth2User(roles = "ORGANISATOR")
+    @WithMockOAuth2User(roles = {"STUDENT", "KORREKTOR"})
     void test_7() throws Exception {
         mockMvc.perform(get("/ExamByte/testerstellung"))
                 .andExpect(status().isForbidden());
