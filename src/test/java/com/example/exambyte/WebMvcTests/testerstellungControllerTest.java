@@ -7,6 +7,7 @@ import com.example.exambyte.service.WochenTestService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
@@ -21,6 +22,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @WebMvcTest(testerstellungController.class)
 @Import(MethodSecurityConfig.class)
@@ -33,15 +35,15 @@ public class testerstellungControllerTest {
     WochenTestService wochenTestService;
 
     @Test
-    @DisplayName("Get Request auf /ExamByte/testerstellung ist Status:OK")
-    @WithMockOAuth2User(roles = {"ORGANISATOR"})
+    @DisplayName("Get Request auf /ExamByte/testerstellung ist für Organisatoren Status:OK, für Rolle ORGANISATOR")
+    @WithMockOAuth2User(roles = "ORGANISATOR")
     void test_1() throws Exception {
         mockMvc.perform(get("/ExamByte/testerstellung"))
                 .andExpect(status().isOk());
     }
 
     @Test
-    @DisplayName("Post Request auf /ExamByte/Testerstellung mit Validen Parametern wird auf / redirected")
+    @DisplayName("Post Request auf /ExamByte/Testerstellung mit validen Parametern wird auf /ExamByte redirected, für Rolle ORGANISATOR")
     @WithMockOAuth2User(roles = {"ORGANISATOR"})
     void test_2() throws Exception {
         String name = "Wochentest1";
@@ -56,7 +58,7 @@ public class testerstellungControllerTest {
     }
 
     @Test
-    @DisplayName("Post Request auf /ExamByte/Testerstellung ohne endTime Parameter wird nicht redirected")
+    @DisplayName("Post Request auf /ExamByte/Testerstellung ohne endTime Parameter wird nicht redirected, für Rolle ORGANISATOR")
     @WithMockOAuth2User(roles = {"ORGANISATOR"})
     void test_3() throws Exception {
         LocalDateTime start = LocalDateTime.MIN;
@@ -68,7 +70,7 @@ public class testerstellungControllerTest {
                 .andExpect(view().name("testerstellung"));
     }
     @Test
-    @DisplayName("PostRequest auf /ExamByte/Testerstellung ohne startTime Parameter wird nicht redirected")
+    @DisplayName("Post Request auf /ExamByte/Testerstellung ohne startTime Parameter wird nicht redirected, für Rolle ORGANISATOR")
     @WithMockOAuth2User(roles = {"ORGANISATOR"})
     void test_4() throws Exception {
         LocalDateTime end = LocalDateTime.MAX;
@@ -80,7 +82,7 @@ public class testerstellungControllerTest {
                 .andExpect(view().name("testerstellung"));
     }
     @Test
-    @DisplayName("PostRequest auf /ExamByte/Testerstellung ohne name wird nicht redirected")
+    @DisplayName("Post Request auf /ExamByte/Testerstellung ohne name wird nicht redirected, für Rolle ORGANISATOR")
     @WithMockOAuth2User(roles = {"ORGANISATOR"})
     void test_5() throws Exception {
         LocalDateTime start = LocalDateTime.MIN;
@@ -93,7 +95,7 @@ public class testerstellungControllerTest {
                 .andExpect(view().name("testerstellung"));
     }
     @Test
-    @DisplayName("PostRequest auf /ExamByte/testerstellung mit leerem Namen kein redirect")
+    @DisplayName("Post Request auf /ExamByte/testerstellung mit leerem Namen kein redirect, für Rolle ORGANISATOR")
     @WithMockOAuth2User(roles = {"ORGANISATOR"})
     void test_6() throws Exception {
         String name = "     ";
@@ -109,7 +111,7 @@ public class testerstellungControllerTest {
     }
 
     @Test
-    @DisplayName("Get Request auf /ExamByte/testerstellung ist Status Forbidden if Role not ORGANISATOR")
+    @DisplayName("Get Request auf /ExamByte/testerstellung ist Status Forbidden, für alle Rollen außer ORGANISATOR")
     @WithMockOAuth2User(roles = {"STUDENT", "KORREKTOR"})
     void test_7() throws Exception {
         mockMvc.perform(get("/ExamByte/testerstellung"))
@@ -117,7 +119,7 @@ public class testerstellungControllerTest {
     }
 
     @Test
-    @DisplayName("Post Request auf /ExamByte/Testerstellung mit Validen Parametern ist Status Forbidden if Role not ORGANISATOR")
+    @DisplayName("Post Request auf /ExamByte/Testerstellung mit Validen Parametern ist Status Forbidden, für alle Rollen außer ORGANISATOR")
     @WithMockOAuth2User(roles = {"STUDENT", "KORREKTOR"})
     void test_8() throws Exception {
         String name = "Wochentest1";
