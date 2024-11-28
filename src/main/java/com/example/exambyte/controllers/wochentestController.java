@@ -31,7 +31,7 @@ public class wochentestController {
                              @PathVariable String testname,
                              @AuthenticationPrincipal OAuth2User user){
         WochenTest wochenTest = wochenTestService.getWochenTest(testname);
-        if(wochenTest.getStatus().getTitle().equals("Ausstehend") &&
+        if(wochenTest.getStatus() == STATUS.STATUS_AUSSTEHEND &&
                 !user.getAuthorities().toString().contains("ROLE_ORGANISATOR")){
             throw new TestNichtGefundenException("Der Test ist noch nicht freigeschaltet");
         }
