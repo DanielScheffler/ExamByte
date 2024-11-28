@@ -100,7 +100,7 @@ public class indexControllerTest {
 
     @Test
     @DisplayName("Bei einem Get Request auf /ExamByte ohne Authentifizierung folgt eine Redirection")
-    @WithMockOAuth2User(roles = {"USER"})
+    @WithMockOAuth2User()
     void test_7() throws Exception {
         when(wochenTestService.getWochenTests()).thenReturn(new ArrayList<>());
         mockMvc.perform(get("/ExamByte"))
