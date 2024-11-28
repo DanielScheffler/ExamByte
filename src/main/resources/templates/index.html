@@ -29,12 +29,15 @@
             </thead>
             <tbody th:remove="all-but-first">
             <tr th:each="test : ${tests}">
-                <td >
-                    <div th:unless="${test.getFragen().isEmpty()}">
+                <td>
+                    <div th:if="${!authorities.contains('ORGANISATOR') && test.getStatus().getTitle().equals('Ausstehend')}">
+                        <p th:text="${test.name}">Woche 1</p>
+                    </div>
+                    <div th:if="${!test.getFragen().isEmpty() && !(!authorities.contains('ORGANISATOR') && test.getStatus().getTitle().equals('Ausstehend'))}">
                         <a th:href="@{/ExamByte/{name}/{fragename}(name=${test.name}, fragename=${(test.getFragen().getFirst().name)})}"
                            th:text="${test.name}">Woche 1</a>
                     </div>
-                    <div th:if="${test.getFragen().isEmpty()}">
+                    <div th:if="${test.getFragen().isEmpty() && !(!authorities.contains('ORGANISATOR') && test.getStatus().getTitle().equals('Ausstehend'))}">
                         <a th:href="@{/ExamByte/{name}(name=${test.name})}"
                            th:text="${test.name}">Woche 1</a>
                     </div>

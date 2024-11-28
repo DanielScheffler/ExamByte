@@ -3,6 +3,7 @@ package com.example.exambyte.WebMvcTests;
 import com.example.exambyte.builder.WochenTestBuilder;
 import com.example.exambyte.configuration.MethodSecurityConfig;
 import com.example.exambyte.controllers.indexController;
+import com.example.exambyte.data.STATUS;
 import com.example.exambyte.data.WochenTest;
 import com.example.exambyte.helper.WithMockOAuth2User;
 import com.example.exambyte.service.WochenTestService;
@@ -132,5 +133,23 @@ public class indexControllerTest {
                 .getContentAsString();
         Document html = Jsoup.parse(htmlText);
         assertThat(html.select("a[href='/ExamByte/testerstellung']")).isNotEmpty();
+    }
+
+    @Test
+    @DisplayName("Für Nutzer, die keine Organisatoren sind, wird bei ausstehenden Wochentests kein Link zum entsprechenden Test ausgeliefert.")
+    @WithMockOAuth2User(roles= {"STUDENT","KORREKTOR"})
+    void test_10() throws Exception {
+        String testName = "dummyTest";
+        WochenTest dummyTest = new WochenTestBuilder()
+                .addName(testName)
+                .addStatus(STATUS.STATUS_AUSSTEHEND)
+                .build();
+        when(wochenTestService.getWochenTests()).thenReturn(List.of(dummyTest));
+        String htmlText = mockMvc.perform(get("/ExamByte"))
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
+        Document html = Jsoup.parse(htmlText);
+        assertThat(html.select("a[href='/ExamByte/dummyTest']")).isEmpty();
     }
 }
