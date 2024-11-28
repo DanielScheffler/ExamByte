@@ -50,7 +50,7 @@ public class indexControllerTest {
     }
 
     @Test
-    @DisplayName("Der Get Request auf /ExamByte funktioniert mit einem Wochentests")
+    @DisplayName("Der Get Request auf /ExamByte funktioniert mit einem Wochentests, für Studenten")
     @WithMockOAuth2User(roles = {"STUDENT"})
     void  test_3() throws Exception {
         WochenTest test = new WochenTestBuilder().addName("testWochenTest1").build();
@@ -64,7 +64,7 @@ public class indexControllerTest {
     }
 
     @Test
-    @DisplayName("Der Get Request auf /ExamByte funktioniert, bei null Wochentests")
+    @DisplayName("Der Get Request auf /ExamByte funktioniert, bei null Wochentests, für Studenten")
     @WithMockOAuth2User(roles = {"STUDENT"})
     void  test_4() throws Exception {
         when(wochenTestService.getWochenTests()).thenReturn(null);
@@ -74,7 +74,7 @@ public class indexControllerTest {
     }
 
     @Test
-    @DisplayName("Der Get Request auf /ExamByte funktioniert, mit mehreren Wochentests")
+    @DisplayName("Der Get Request auf /ExamByte funktioniert, mit mehreren Wochentests, für Studenten")
     @WithMockOAuth2User(roles = {"STUDENT"})
     void test_5() throws Exception {
         WochenTest test1 = new WochenTestBuilder().addName("testWochenTest1").build();
