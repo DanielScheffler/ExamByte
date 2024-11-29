@@ -11,14 +11,6 @@ public class AntwortMoeglichkeit {
         this.istWahr = istWahr;
     }
 
-    public boolean isIstWahr() {
-        return istWahr;
-    }
-
-    public String getText() {
-        return text;
-    }
-
     public String text() {
         return text;
     }
