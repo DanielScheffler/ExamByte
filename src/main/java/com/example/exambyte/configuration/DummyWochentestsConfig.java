@@ -4,7 +4,7 @@ import com.example.exambyte.ExamByteApplication;
 import com.example.exambyte.builder.FrageBuilder;
 import com.example.exambyte.builder.WochenTestBuilder;
 import com.example.exambyte.domain.model.*;
-import com.example.exambyte.service.WochenTestService;
+import com.example.exambyte.application.service.WochenTestService;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;

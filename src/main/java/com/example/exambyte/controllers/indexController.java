@@ -1,6 +1,6 @@
 package com.example.exambyte.controllers;
 
-import com.example.exambyte.service.WochenTestService;
+import com.example.exambyte.application.service.WochenTestService;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;

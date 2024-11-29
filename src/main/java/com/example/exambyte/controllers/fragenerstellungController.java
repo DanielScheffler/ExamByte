@@ -5,7 +5,7 @@ import com.example.exambyte.domain.model.FRAGENTYP;
 import com.example.exambyte.domain.model.Frage;
 import com.example.exambyte.domain.model.FrageForm;
 import com.example.exambyte.domain.model.WochenTest;
-import com.example.exambyte.service.WochenTestService;
+import com.example.exambyte.application.service.WochenTestService;
 import jakarta.validation.Valid;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
