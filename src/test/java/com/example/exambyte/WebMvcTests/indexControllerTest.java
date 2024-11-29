@@ -1,6 +1,6 @@
 package com.example.exambyte.WebMvcTests;
 
-import com.example.exambyte.builder.WochenTestBuilder;
+import com.example.exambyte.domain.service.builder.WochenTestBuilder;
 import com.example.exambyte.configuration.MethodSecurityConfig;
 import com.example.exambyte.controllers.indexController;
 import com.example.exambyte.domain.model.STATUS;
