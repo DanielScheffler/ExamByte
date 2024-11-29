@@ -1,13 +1,14 @@
 package com.example.exambyte.repositories;
 
 import com.example.exambyte.domain.model.WochenTest;
+import com.example.exambyte.domain.service.WochenTestRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class WochenTestRepositoryImpl {
+public class WochenTestRepositoryImpl implements WochenTestRepository {
     private List<WochenTest> wochenTests = new ArrayList<>();
 
     public List<WochenTest> findAll() {
