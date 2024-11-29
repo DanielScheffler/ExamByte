@@ -4,7 +4,6 @@ import com.example.exambyte.domain.model.WochenTest;
 import com.example.exambyte.domain.service.WochenTestRepository;
 import com.example.exambyte.exceptions.TestNichtGefundenException;
 import com.example.exambyte.exceptions.TestnameExistiertBereitsException;
-import com.example.exambyte.repositories.WochenTestRepositoryImpl;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
