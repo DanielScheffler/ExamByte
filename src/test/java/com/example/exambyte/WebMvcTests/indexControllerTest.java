@@ -6,7 +6,7 @@ import com.example.exambyte.controllers.indexController;
 import com.example.exambyte.domain.model.STATUS;
 import com.example.exambyte.domain.model.WochenTest;
 import com.example.exambyte.helper.WithMockOAuth2User;
-import com.example.exambyte.service.WochenTestService;
+import com.example.exambyte.application.service.WochenTestService;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.junit.jupiter.api.DisplayName;
@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;

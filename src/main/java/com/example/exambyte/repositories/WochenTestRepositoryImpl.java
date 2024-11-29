@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class WochenTestRepository {
+public class WochenTestRepositoryImpl {
     private List<WochenTest> wochenTests = new ArrayList<>();
 
     public List<WochenTest> findAll() {

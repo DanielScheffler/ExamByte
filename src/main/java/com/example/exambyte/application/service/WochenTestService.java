@@ -3,7 +3,7 @@ package com.example.exambyte.application.service;
 import com.example.exambyte.domain.model.WochenTest;
 import com.example.exambyte.exceptions.TestNichtGefundenException;
 import com.example.exambyte.exceptions.TestnameExistiertBereitsException;
-import com.example.exambyte.repositories.WochenTestRepository;
+import com.example.exambyte.repositories.WochenTestRepositoryImpl;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,9 +11,9 @@ import java.util.List;
 @Service
 public class WochenTestService {
 
-    WochenTestRepository wochenTestRepository;
+    WochenTestRepositoryImpl wochenTestRepository;
 
-    WochenTestService(WochenTestRepository wochenTestRepository) {
+    WochenTestService(WochenTestRepositoryImpl wochenTestRepository) {
         this.wochenTestRepository = wochenTestRepository;
     }
 

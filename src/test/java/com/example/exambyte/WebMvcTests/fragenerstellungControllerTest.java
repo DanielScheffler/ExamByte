@@ -5,7 +5,7 @@ import com.example.exambyte.controllers.fragenerstellungController;
 import com.example.exambyte.domain.model.FRAGENTYP;
 import com.example.exambyte.domain.model.WochenTest;
 import com.example.exambyte.helper.WithMockOAuth2User;
-import com.example.exambyte.service.WochenTestService;
+import com.example.exambyte.application.service.WochenTestService;
 import com.example.exambyte.unitTests.WochenTestTestBuilder;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
