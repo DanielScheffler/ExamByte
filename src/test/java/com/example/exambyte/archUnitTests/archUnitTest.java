@@ -1,18 +1,18 @@
 package com.example.exambyte.archUnitTests;
 
 import com.example.exambyte.ExamByteApplication;
-import com.tngtech.archunit.core.domain.JavaClasses;
-import com.tngtech.archunit.core.importer.ClassFileImporter;
 import com.tngtech.archunit.core.importer.ImportOption;
 import com.tngtech.archunit.junit.AnalyzeClasses;
 import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
 
+import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.classes;
 import static com.tngtech.archunit.library.Architectures.onionArchitecture;
+import static com.tngtech.archunit.library.plantuml.rules.PlantUmlArchCondition.Configuration.consideringOnlyDependenciesInDiagram;
+import static com.tngtech.archunit.library.plantuml.rules.PlantUmlArchCondition.adhereToPlantUmlDiagram;
 
 @AnalyzeClasses(packagesOf = ExamByteApplication.class, importOptions = ImportOption.DoNotIncludeTests.class)
 public class archUnitTest {
-    private final JavaClasses classes = new ClassFileImporter().importClasses(ExamByteApplication.class);
 
     @ArchTest
     ArchRule onionTest = onionArchitecture()
@@ -22,4 +22,11 @@ public class archUnitTest {
             .adapter("web", "..controllers..")
             .adapter("config", "..configuration..")
             .adapter("persistence", "..repositories..");
+
+    @ArchTest
+    static ArchRule umlTest = classes().should(adhereToPlantUmlDiagram(
+            ExamByteApplication.class.getResource("/architecture.puml"),
+            consideringOnlyDependenciesInDiagram()
+    ));
+
 }
