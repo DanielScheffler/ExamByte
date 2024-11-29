@@ -1,4 +1,4 @@
-package com.example.exambyte.builder;
+package com.example.exambyte.domain.service.builder;
 
 import com.example.exambyte.domain.model.Frage;
 import com.example.exambyte.domain.model.STATUS;

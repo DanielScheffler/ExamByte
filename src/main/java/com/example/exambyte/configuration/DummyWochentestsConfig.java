@@ -1,8 +1,8 @@
 package com.example.exambyte.configuration;
 
 import com.example.exambyte.ExamByteApplication;
-import com.example.exambyte.builder.FrageBuilder;
-import com.example.exambyte.builder.WochenTestBuilder;
+import com.example.exambyte.domain.service.builder.FrageBuilder;
+import com.example.exambyte.domain.service.builder.WochenTestBuilder;
 import com.example.exambyte.domain.model.*;
 import com.example.exambyte.application.service.WochenTestService;
 import org.springframework.boot.ApplicationRunner;

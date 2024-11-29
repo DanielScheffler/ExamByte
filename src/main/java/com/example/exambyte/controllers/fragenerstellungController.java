@@ -1,6 +1,6 @@
 package com.example.exambyte.controllers;
 
-import com.example.exambyte.builder.FrageBuilder;
+import com.example.exambyte.domain.service.builder.FrageBuilder;
 import com.example.exambyte.domain.model.FRAGENTYP;
 import com.example.exambyte.domain.model.Frage;
 import com.example.exambyte.domain.model.FrageForm;
