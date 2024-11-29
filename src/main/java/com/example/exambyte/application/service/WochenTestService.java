@@ -1,6 +1,7 @@
 package com.example.exambyte.application.service;
 
 import com.example.exambyte.domain.model.WochenTest;
+import com.example.exambyte.domain.service.WochenTestRepository;
 import com.example.exambyte.exceptions.TestNichtGefundenException;
 import com.example.exambyte.exceptions.TestnameExistiertBereitsException;
 import com.example.exambyte.repositories.WochenTestRepositoryImpl;
@@ -11,9 +12,9 @@ import java.util.List;
 @Service
 public class WochenTestService {
 
-    WochenTestRepositoryImpl wochenTestRepository;
+    WochenTestRepository wochenTestRepository;
 
-    WochenTestService(WochenTestRepositoryImpl wochenTestRepository) {
+    WochenTestService(WochenTestRepository wochenTestRepository) {
         this.wochenTestRepository = wochenTestRepository;
     }
 
