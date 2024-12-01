@@ -1,4 +1,4 @@
-package com.example.exambyte.configuration;
+package com.example.exambyte.adapters.configuration;
 
 import com.example.exambyte.ExamByteApplication;
 import com.example.exambyte.domain.service.builder.FrageBuilder;

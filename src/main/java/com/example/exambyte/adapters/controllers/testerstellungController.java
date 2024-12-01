@@ -1,4 +1,4 @@
-package com.example.exambyte.controllers;
+package com.example.exambyte.adapters.controllers;
 
 import com.example.exambyte.domain.service.builder.WochenTestBuilder;
 import com.example.exambyte.domain.model.Frage;

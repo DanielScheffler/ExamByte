@@ -1,4 +1,4 @@
-package com.example.exambyte.repositories;
+package com.example.exambyte.adapters.repositories;
 
 import com.example.exambyte.domain.model.WochenTest;
 import com.example.exambyte.domain.service.WochenTestRepository;

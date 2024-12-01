@@ -1,4 +1,4 @@
-package com.example.exambyte.configuration;
+package com.example.exambyte.adapters.configuration;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;

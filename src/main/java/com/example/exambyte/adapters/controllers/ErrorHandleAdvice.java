@@ -1,4 +1,4 @@
-package com.example.exambyte.controllers;
+package com.example.exambyte.adapters.controllers;
 
 import com.example.exambyte.exceptions.*;
 import org.springframework.http.HttpStatus;

@@ -1,4 +1,4 @@
-package com.example.exambyte.controllers;
+package com.example.exambyte.adapters.controllers;
 
 import com.example.exambyte.application.service.WochenTestService;
 import org.springframework.security.access.annotation.Secured;
