@@ -5,7 +5,7 @@ import com.example.exambyte.domain.model.WochenTest;
 import java.util.List;
 
 public interface WochenTestRepository {
-    public List<WochenTest> findAll();
-    public void save(WochenTest wochenTest);
-    public void remove(WochenTest wochenTest);
+    List<WochenTest> findAll();
+    void save(WochenTest wochenTest);
+    void remove(WochenTest wochenTest);
 }
