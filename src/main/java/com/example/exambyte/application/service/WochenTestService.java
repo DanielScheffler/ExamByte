@@ -1,7 +1,6 @@
 package com.example.exambyte.application.service;
 
 import com.example.exambyte.domain.model.WochenTest;
-import com.example.exambyte.domain.service.WochenTestRepository;
 import com.example.exambyte.exceptions.TestNichtGefundenException;
 import com.example.exambyte.exceptions.TestnameExistiertBereitsException;
 import org.springframework.stereotype.Service;

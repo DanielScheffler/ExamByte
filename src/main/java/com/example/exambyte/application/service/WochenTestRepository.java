@@ -1,4 +1,4 @@
-package com.example.exambyte.domain.service;
+package com.example.exambyte.application.service;
 
 import com.example.exambyte.domain.model.WochenTest;
 

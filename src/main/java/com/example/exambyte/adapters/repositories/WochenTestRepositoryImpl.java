@@ -1,7 +1,7 @@
 package com.example.exambyte.adapters.repositories;
 
 import com.example.exambyte.domain.model.WochenTest;
-import com.example.exambyte.domain.service.WochenTestRepository;
+import com.example.exambyte.application.service.WochenTestRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
