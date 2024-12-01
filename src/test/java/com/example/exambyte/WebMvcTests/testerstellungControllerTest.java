@@ -1,7 +1,7 @@
 package com.example.exambyte.WebMvcTests;
 
-import com.example.exambyte.configuration.MethodSecurityConfig;
-import com.example.exambyte.controllers.testerstellungController;
+import com.example.exambyte.adapters.configuration.MethodSecurityConfig;
+import com.example.exambyte.adapters.controllers.testerstellungController;
 import com.example.exambyte.helper.WithMockOAuth2User;
 import com.example.exambyte.application.service.WochenTestService;
 import org.junit.jupiter.api.Test;

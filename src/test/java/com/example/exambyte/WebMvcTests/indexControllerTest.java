@@ -1,8 +1,8 @@
 package com.example.exambyte.WebMvcTests;
 
 import com.example.exambyte.domain.service.builder.WochenTestBuilder;
-import com.example.exambyte.configuration.MethodSecurityConfig;
-import com.example.exambyte.controllers.indexController;
+import com.example.exambyte.adapters.configuration.MethodSecurityConfig;
+import com.example.exambyte.adapters.controllers.indexController;
 import com.example.exambyte.domain.model.STATUS;
 import com.example.exambyte.domain.model.WochenTest;
 import com.example.exambyte.helper.WithMockOAuth2User;

@@ -1,8 +1,8 @@
 package com.example.exambyte.WebMvcTests;
 
 import com.example.exambyte.domain.service.builder.FrageBuilder;
-import com.example.exambyte.configuration.MethodSecurityConfig;
-import com.example.exambyte.controllers.wochentestController;
+import com.example.exambyte.adapters.configuration.MethodSecurityConfig;
+import com.example.exambyte.adapters.controllers.wochentestController;
 import com.example.exambyte.domain.model.Frage;
 import com.example.exambyte.domain.model.STATUS;
 import com.example.exambyte.domain.model.WochenTest;

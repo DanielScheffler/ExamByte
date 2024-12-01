@@ -1,7 +1,7 @@
 package com.example.exambyte.WebMvcTests;
 
-import com.example.exambyte.configuration.MethodSecurityConfig;
-import com.example.exambyte.controllers.fragenerstellungController;
+import com.example.exambyte.adapters.configuration.MethodSecurityConfig;
+import com.example.exambyte.adapters.controllers.fragenerstellungController;
 import com.example.exambyte.domain.model.FRAGENTYP;
 import com.example.exambyte.domain.model.WochenTest;
 import com.example.exambyte.helper.WithMockOAuth2User;
